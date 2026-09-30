@@ -81,12 +81,11 @@ const flowSteps = [
 ]
 
 if (flow && packet && flowToggle && flowRestart && flowCount && flowTitle && flowDetail && flowPayload) {
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
   const duration = 1800
   let index = 0
   let progress = 0
   let lastFrame = 0
-  let paused = reducedMotion.matches
+  let paused = false
 
   const render = () => {
     const [edgeName, sourceName, targetName, title, detail, payload] = flowSteps[index]
@@ -134,11 +133,6 @@ if (flow && packet && flowToggle && flowRestart && flowCount && flowTitle && flo
     lastFrame = 0
     render()
   })
-  reducedMotion.addEventListener("change", (event) => {
-    paused = event.matches
-    flowToggle.textContent = paused ? "播放" : "暂停"
-  })
-  flowToggle.textContent = paused ? "播放" : "暂停"
   render()
   window.requestAnimationFrame(tick)
 }

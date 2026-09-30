@@ -12,7 +12,7 @@ python3 -m http.server 4173 --bind 127.0.0.1
 
 打开 `http://127.0.0.1:4173/docs/site/`。使用仓库根目录作为服务根，便于访问 README / 架构 / 许可链接。结束时按 Ctrl+C。
 
-页面用同一张可播放的数据流图展示 Dashboard → Backend → PostgreSQL → Redis Stream → Worker → Agent Runtime → 补丁与独立验证 → 结果查询。Runtime 内部直接展示 Agent、模型、工具与工作区的往返；播放、暂停、重播与逐步数据说明位于图旁。页面还提供五类消息故障恢复说明、派发/补丁/验证流程示例、截图切换和启动命令复制。截图来自本地 arithmetic fixture 演示。
+页面用同一张自动循环的数据流图展示 Dashboard → Backend → PostgreSQL → Redis Stream → Worker → Agent Runtime → 补丁与独立验证 → 结果查询。Runtime 内部直接展示 Agent、模型、工具与工作区的往返；暂停、继续、重播与逐步数据说明位于图旁。页面还提供五类消息故障恢复说明、派发/补丁/验证流程示例、截图切换和启动命令复制。截图来自本地 arithmetic fixture 演示。
 
 ## 文件
 

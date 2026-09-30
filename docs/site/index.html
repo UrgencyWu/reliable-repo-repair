@@ -115,24 +115,24 @@ unknown:  RECONCILING</code></pre>
                 <defs><marker id="flow-arrowhead" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7" fill="none" stroke="#718b76" stroke-width="1.4"/></marker></defs>
                 <rect class="runtime-zone" x="254" y="282" width="852" height="304" rx="16"/>
                 <text class="flow-zone-label" x="46" y="42">CONTROL PLANE · 任务、派发与结果</text>
-                <g class="flow-edge" data-edge="submit"><path d="M230 112 H276"/><text x="232" y="99">任务输入</text></g>
+                <g class="flow-edge" data-edge="submit"><path d="M230 101 H276"/><text x="232" y="90">任务输入</text></g>
                 <g class="flow-edge" data-edge="commit"><path d="M459 112 H504"/><text x="462" y="99">事务提交</text></g>
                 <g class="flow-edge" data-edge="publish"><path d="M688 112 H732"/><text x="690" y="99">intent_id</text></g>
                 <g class="flow-edge" data-edge="deliver"><path d="M918 112 H964"/><text x="922" y="99">消息</text></g>
-                <g class="flow-edge" data-edge="claim"><path d="M1050 160 V190 H596 V159"/><text x="792" y="183">按 ID 领取租约 · PostgreSQL</text></g>
-                <g class="flow-edge" data-edge="start"><path d="M1050 160 V246 H947 V313"/><text x="954" y="234">Runtime Run</text></g>
-                <g class="flow-edge" data-edge="context"><path d="M858 365 H711"/><text x="749" y="353">修复上下文</text></g>
-                <g class="flow-edge" data-edge="reason"><path d="M600 396 V432"/><text x="611" y="410">模型消息</text></g>
+                <g class="flow-edge" data-edge="claim"><path d="M1012 159 V210 H650 V159"/><text x="768" y="203">按 ID 领取租约 · PostgreSQL</text></g>
+                <g class="flow-edge" data-edge="start"><path d="M1107 159 V252 H965 V313"/><text x="1005" y="244">Runtime Run</text></g>
+                <g class="flow-edge" data-edge="context"><path d="M858 351 H711"/><text x="748" y="342">修复上下文</text></g>
+                <g class="flow-edge" data-edge="reason"><path d="M555 396 V432"/><text x="568" y="413">模型消息</text></g>
                 <g class="flow-edge" data-edge="tool"><path d="M687 472 H763"/><text x="698" y="461">工具调用</text></g>
-                <g class="flow-edge" data-edge="workspace"><path d="M856 504 V544 H428 V504"/><text x="577" y="536">读文件 · 执行命令 · 修改代码</text></g>
-                <g class="flow-edge" data-edge="observe"><path d="M350 472 H504"/><text x="377" y="461">工具结果</text></g>
-                <g class="flow-edge" data-edge="iterate"><path d="M601 432 V396"/><text x="611" y="426">继续判断</text></g>
-                <g class="flow-edge" data-edge="finish"><path d="M711 365 H858"/><text x="746" y="383">执行状态</text></g>
-                <g class="flow-edge" data-edge="candidate"><path d="M947 410 V638 H866"/><text x="953" y="590">候选补丁</text></g>
+                <g class="flow-edge" data-edge="workspace"><path d="M856 504 V544 H361 V504"/><text x="576" y="536">读文件 · 执行命令 · 修改代码</text></g>
+                <g class="flow-edge" data-edge="observe"><path d="M428 472 H504"/><text x="435" y="461">工具结果</text></g>
+                <g class="flow-edge" data-edge="iterate"><path d="M655 432 V396"/><text x="666" y="419">继续判断</text></g>
+                <g class="flow-edge" data-edge="finish"><path d="M711 381 H858"/><text x="750" y="395">执行状态</text></g>
+                <g class="flow-edge" data-edge="candidate"><path d="M1034 410 V602 H920 V681 H866"/><text x="961" y="593">Worker 收集补丁</text></g>
                 <g class="flow-edge" data-edge="validate"><path d="M678 681 H527"/><text x="568" y="670">patch + SHA-256</text></g>
-                <g class="flow-edge" data-edge="persist"><path d="M336 682 H166 V207 H596 V159"/><text x="178" y="663">验证记录</text></g>
-                <g class="flow-edge" data-edge="result"><path d="M596 65 V52 H367 V64"/><text x="391" y="44">状态 / diff / logs</text></g>
-                <g class="flow-edge" data-edge="display"><path d="M276 112 H230"/><text x="234" y="138">结果查询</text></g>
+                <g class="flow-edge" data-edge="persist"><path d="M336 681 H176 V230 H540 V159"/><text x="188" y="671">验证记录</text></g>
+                <g class="flow-edge" data-edge="result"><path d="M560 65 V52 H410 V65"/><text x="413" y="43">状态 / diff / logs</text></g>
+                <g class="flow-edge" data-edge="display"><path d="M276 135 H230"/><text x="233" y="151">结果返回</text></g>
 
                 <g class="flow-node" data-node="dashboard"><rect x="46" y="65" width="184" height="94" rx="10"/><text class="node-kicker" x="64" y="90">01 / INTERFACE</text><text class="node-title" x="64" y="122">Dashboard</text><text class="node-detail" x="64" y="144">创建 · 查询 · 展示</text></g>
                 <g class="flow-node" data-node="backend"><rect x="276" y="65" width="183" height="94" rx="10"/><text class="node-kicker" x="294" y="90">02 / API + RUNTIME HOST</text><text class="node-title" x="294" y="122">Backend</text><text class="node-detail" x="294" y="144">认证 · Repair API</text></g>
