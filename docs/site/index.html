@@ -108,23 +108,54 @@ unknown:  RECONCILING</code></pre>
       <section id="architecture" class="section architecture-section" aria-labelledby="architecture-title">
         <div class="container">
           <div class="section-heading"><div><p class="eyebrow">02 / SYSTEM ARCHITECTURE</p><h2 id="architecture-title">五个服务，一条可恢复的数据流。</h2></div><a class="text-link" href="../../compose.repair.yaml">查看服务配置 <span aria-hidden="true">↗</span></a></div>
-          <div class="architecture-grid">
-            <article class="service"><span class="technical-label">01 / INTERFACE</span><h3>Dashboard</h3><p>创建与查询任务<br>只读 diff / timeline / logs</p><span class="stack">React · TypeScript · pnpm</span></article>
-            <article class="service"><span class="technical-label">02 / RUNTIME</span><h3>Backend</h3><p>Repair API 与原认证<br>Open SWE / LangGraph 执行</p><span class="stack">FastAPI · Python 3.14</span></article>
-            <article class="service highlight-service"><span class="technical-label">03 / ORCHESTRATION</span><h3>Repair Worker</h3><p>派发 / 观察 / 对账<br>候选收集 / 独立验证</p><span class="stack">Async Python · Runtime API</span></article>
-            <article class="service"><span class="technical-label">04 / PERSISTENCE</span><h3>PostgreSQL</h3><p>Task / Run / Intent / Event<br>Candidate / Validation</p><span class="stack">Transactions · Leases</span></article>
-            <article class="service"><span class="technical-label">05 / DELIVERY</span><h3>Redis Streams</h3><p>Intent ID 消息交付<br>消费组 / 待确认消息接管</p><span class="stack">XADD · XREADGROUP · XAUTOCLAIM</span></article>
+          <div class="flow-shell" id="repair-flow">
+            <div class="flow-toolbar"><div><span class="technical-label">LIVE DATA ROUTE / 端到端修复</span><p>外部派发与 Agent 内部模型、工具、工作区循环同屏呈现<span class="flow-mobile-hint"> · 横向滑动查看全图</span></p></div><div class="flow-controls"><button id="flow-toggle" type="button" aria-label="暂停数据流">暂停</button><button id="flow-restart" type="button">重播</button></div></div>
+            <div class="flow-canvas" role="img" aria-label="Dashboard 提交任务，Backend 与 PostgreSQL 同事务保存，Redis 投递 intent_id，Worker 领取数据库租约并启动 Agent Runtime。Runtime 内模型、工具与工作区循环，Worker 收集补丁并独立验证，结果经 PostgreSQL 和 Backend 返回 Dashboard。">
+              <svg id="flow-svg" viewBox="0 0 1200 760" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs><marker id="flow-arrowhead" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7" fill="none" stroke="#718b76" stroke-width="1.4"/></marker></defs>
+                <rect class="runtime-zone" x="254" y="282" width="852" height="304" rx="16"/>
+                <text class="flow-zone-label" x="46" y="42">CONTROL PLANE · 任务、派发与结果</text>
+                <g class="flow-edge" data-edge="submit"><path d="M230 112 H276"/><text x="232" y="99">任务输入</text></g>
+                <g class="flow-edge" data-edge="commit"><path d="M459 112 H504"/><text x="462" y="99">事务提交</text></g>
+                <g class="flow-edge" data-edge="publish"><path d="M688 112 H732"/><text x="690" y="99">intent_id</text></g>
+                <g class="flow-edge" data-edge="deliver"><path d="M918 112 H964"/><text x="922" y="99">消息</text></g>
+                <g class="flow-edge" data-edge="claim"><path d="M1050 160 V190 H596 V159"/><text x="792" y="183">按 ID 领取租约 · PostgreSQL</text></g>
+                <g class="flow-edge" data-edge="start"><path d="M1050 160 V246 H947 V313"/><text x="954" y="234">Runtime Run</text></g>
+                <g class="flow-edge" data-edge="context"><path d="M858 365 H711"/><text x="749" y="353">修复上下文</text></g>
+                <g class="flow-edge" data-edge="reason"><path d="M600 396 V432"/><text x="611" y="410">模型消息</text></g>
+                <g class="flow-edge" data-edge="tool"><path d="M687 472 H763"/><text x="698" y="461">工具调用</text></g>
+                <g class="flow-edge" data-edge="workspace"><path d="M856 504 V544 H428 V504"/><text x="577" y="536">读文件 · 执行命令 · 修改代码</text></g>
+                <g class="flow-edge" data-edge="observe"><path d="M350 472 H504"/><text x="377" y="461">工具结果</text></g>
+                <g class="flow-edge" data-edge="iterate"><path d="M601 432 V396"/><text x="611" y="426">继续判断</text></g>
+                <g class="flow-edge" data-edge="finish"><path d="M711 365 H858"/><text x="746" y="383">执行状态</text></g>
+                <g class="flow-edge" data-edge="candidate"><path d="M947 410 V638 H866"/><text x="953" y="590">候选补丁</text></g>
+                <g class="flow-edge" data-edge="validate"><path d="M678 681 H527"/><text x="568" y="670">patch + SHA-256</text></g>
+                <g class="flow-edge" data-edge="persist"><path d="M336 682 H166 V207 H596 V159"/><text x="178" y="663">验证记录</text></g>
+                <g class="flow-edge" data-edge="result"><path d="M596 65 V52 H367 V64"/><text x="391" y="44">状态 / diff / logs</text></g>
+                <g class="flow-edge" data-edge="display"><path d="M276 112 H230"/><text x="234" y="138">结果查询</text></g>
+
+                <g class="flow-node" data-node="dashboard"><rect x="46" y="65" width="184" height="94" rx="10"/><text class="node-kicker" x="64" y="90">01 / INTERFACE</text><text class="node-title" x="64" y="122">Dashboard</text><text class="node-detail" x="64" y="144">创建 · 查询 · 展示</text></g>
+                <g class="flow-node" data-node="backend"><rect x="276" y="65" width="183" height="94" rx="10"/><text class="node-kicker" x="294" y="90">02 / API + RUNTIME HOST</text><text class="node-title" x="294" y="122">Backend</text><text class="node-detail" x="294" y="144">认证 · Repair API</text></g>
+                <g class="flow-node" data-node="postgres"><rect x="504" y="65" width="184" height="94" rx="10"/><text class="node-kicker" x="522" y="90">03 / SOURCE OF TRUTH</text><text class="node-title" x="522" y="122">PostgreSQL</text><text class="node-detail" x="522" y="144">Task · Run · Intent</text></g>
+                <g class="flow-node" data-node="redis"><rect x="732" y="65" width="186" height="94" rx="10"/><text class="node-kicker" x="750" y="90">04 / DELIVERY</text><text class="node-title" x="750" y="122">Redis Stream</text><text class="node-detail" x="750" y="144">intent_id · consumer group</text></g>
+                <g class="flow-node" data-node="worker"><rect x="964" y="65" width="190" height="94" rx="10"/><text class="node-kicker" x="982" y="90">05 / ORCHESTRATION</text><text class="node-title" x="982" y="122">Repair Worker</text><text class="node-detail" x="982" y="144">派发 · 观察 · 收集</text></g>
+
+                <text class="flow-zone-label" x="280" y="306">AGENT RUNTIME · LangGraph 执行状态保存在 Backend</text>
+                <g class="flow-node inner-node" data-node="runtime"><rect x="858" y="313" width="214" height="97" rx="10"/><text class="node-kicker" x="876" y="340">RUN / THREAD</text><text class="node-title" x="876" y="369">Agent Runtime</text><text class="node-detail" x="876" y="391">接收任务 · 汇报状态</text></g>
+                <g class="flow-node inner-node" data-node="agent"><rect x="504" y="332" width="207" height="64" rx="10"/><text class="node-kicker" x="522" y="354">GRAPH LOOP</text><text class="node-title" x="522" y="380">Agent 决策</text></g>
+                <g class="flow-node inner-node" data-node="model"><rect x="504" y="432" width="183" height="72" rx="10"/><text class="node-kicker" x="522" y="454">MODEL</text><text class="node-title" x="522" y="483">分析 · 继续判断</text></g>
+                <g class="flow-node inner-node" data-node="tools"><rect x="763" y="432" width="186" height="72" rx="10"/><text class="node-kicker" x="781" y="454">TOOLS</text><text class="node-title" x="781" y="483">读文件 · 执行命令</text></g>
+                <g class="flow-node inner-node" data-node="checkout"><rect x="294" y="432" width="134" height="72" rx="10"/><text class="node-kicker" x="312" y="454">SANDBOX</text><text class="node-title" x="312" y="483">工作区修改</text></g>
+
+                <text class="flow-zone-label" x="46" y="624">ARTIFACT + INDEPENDENT VALIDATION · Worker 执行，结果写回数据库</text>
+                <g class="flow-node" data-node="validator"><rect x="336" y="638" width="191" height="87" rx="10"/><text class="node-kicker" x="354" y="662">FRESH CHECKOUT</text><text class="node-title" x="354" y="689">独立验证</text><text class="node-detail" x="354" y="711">baseline · target · regression</text></g>
+                <g class="flow-node" data-node="patch"><rect x="678" y="638" width="188" height="87" rx="10"/><text class="node-kicker" x="696" y="662">IMMUTABLE ARTIFACT</text><text class="node-title" x="696" y="689">候选补丁</text><text class="node-detail" x="696" y="711">exact base · SHA-256</text></g>
+                <circle id="flow-packet" cx="0" cy="0" r="8" visibility="hidden"/>
+              </svg>
+            </div>
+            <div class="flow-readout" aria-live="off"><span id="flow-count">01 / 18</span><div><strong id="flow-step-title">提交修复任务</strong><p id="flow-step-detail">Dashboard 将仓库、精确提交与失败命令交给 Backend。</p></div><span id="flow-payload">任务输入</span></div>
           </div>
-          <h3 class="flow-title">一次修复的数据流</h3>
-          <ol class="data-flow" aria-label="从任务提交到结果查询的数据流">
-            <li><span>01 / COMMIT</span><strong>API → PostgreSQL</strong><p>同事务保存 Task、Run、Intent 与初始事件，返回 202。</p></li>
-            <li><span>02 / PUBLISH</span><strong>Intent → Redis Stream</strong><p>Worker 扫描到期意图，只投递 <code>intent_id</code>。</p></li>
-            <li><span>03 / CLAIM</span><strong>Stream → Worker → PostgreSQL</strong><p>消费组交付消息，Worker 按 ID 取得数据库租约。</p></li>
-            <li><span>04 / EXECUTE</span><strong>Worker → Runtime</strong><p>原 Open SWE Agent 修改固定提交上的工作区。</p></li>
-            <li><span>05 / VERIFY</span><strong>Patch → Validator → PostgreSQL</strong><p>保存不可变补丁，在干净检出中验证并写回结果。</p></li>
-          </ol>
-          <div class="workspace-flow"><span>Agent checkout</span><span class="flow-arrow" aria-hidden="true">→</span><span>Immutable patch + SHA-256</span><span class="flow-arrow" aria-hidden="true">→</span><span class="accent">Fresh Validator checkout</span></div>
-          <p class="architecture-note">PostgreSQL 是任务与派发状态的事实来源；Redis 只交付消息。Backend 与 Worker 共享本地工作卷，LangGraph Runtime 保存 Agent 执行状态。</p>
+          <p class="architecture-note">PostgreSQL 保存任务与派发状态；Redis Stream 交付 Intent ID。图中 Runtime 位于 Backend 内，Worker 调用它执行 Agent；补丁导出与独立验证由 Worker 完成。</p>
           <h3 class="flow-title">故障发生时如何继续</h3>
           <div class="recovery-grid">
             <p><strong>发布失败</strong><span>Intent 留在数据库，下轮重试 XADD。</span></p>
