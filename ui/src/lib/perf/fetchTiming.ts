@@ -104,8 +104,10 @@ function requestUrl(input: RequestInfo | URL): string {
  * wrapped function looks `fetch` up at call time, which keeps the head warmup
  * script's hand-off patch (`apiWarmup.ts`) working underneath it.
  */
-export function withRequestTiming(fetchImpl: typeof fetch): typeof fetch {
-  return async (input, init) => {
+type FetchCall = (...args: Parameters<typeof fetch>) => ReturnType<typeof fetch>
+
+export function withRequestTiming(fetchImpl: FetchCall): typeof fetch {
+  const wrapped: FetchCall = async (input, init) => {
     const classified =
       typeof window === "undefined"
         ? null
@@ -121,4 +123,5 @@ export function withRequestTiming(fetchImpl: typeof fetch): typeof fetch {
     })
     return response
   }
+  return Object.assign(wrapped, globalThis.fetch)
 }

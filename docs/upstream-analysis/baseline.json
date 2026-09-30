@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/langchain-ai/open-swe.git",
+  "remote": "upstream",
+  "commit": "ad545353e2cdb4c7ae1c419f966c82436b63e799",
+  "baseline_tag": "ci-repair-upstream-baseline",
+  "development_branch": "feat/ci-repair-backend",
+  "audit_date": "2026-09-28",
+  "selection": "Pinned source audit snapshot; runtime compatibility remains unverified. Do not track main automatically.",
+  "runtime_validation": "pending",
+  "original_readme": "docs/upstream-analysis/UPSTREAM_README.md"
+}

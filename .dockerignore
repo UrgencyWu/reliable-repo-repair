@@ -10,6 +10,8 @@ __pycache__
 .pytest_cache
 .ruff_cache
 .venv
+.tools
+.langgraph_api
 .DS_Store
 logs.txt
 ui/node_modules

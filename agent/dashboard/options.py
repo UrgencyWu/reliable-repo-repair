@@ -330,6 +330,17 @@ def default_model_pair() -> tuple[str, str]:
             if effort not in model["efforts"]:
                 raise ValueError(f"Unsupported LLM_REASONING_EFFORT {effort!r} for {model_id!r}")
             return model_id, effort
+    if (
+        model_id.startswith("openai:")
+        and model_id.removeprefix("openai:")
+        and model_id not in DEPRECATED_MODEL_IDS
+        and model_id not in NON_DEFAULT_MODEL_IDS
+        and ENV.OPENAI_BASE_URL.optional()
+    ):
+        effort = effort or "none"
+        if effort not in {"none", "low", "medium", "high", "xhigh", "max"}:
+            raise ValueError(f"Unsupported LLM_REASONING_EFFORT {effort!r} for {model_id!r}")
+        return model_id, effort
     raise ValueError(f"Unsupported default LLM_MODEL_ID: {model_id!r}")
 
 

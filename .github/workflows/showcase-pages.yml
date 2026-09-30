@@ -1,0 +1,63 @@
+name: Publish project showcase
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: showcase-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/configure-pages@v5
+      - name: Package only the public static showcase
+        env:
+          SHOWCASE_OUTPUT: ${{ runner.temp }}/repair-showcase
+        run: |
+          python3 - <<'PY'
+          import html
+          import os
+          import shutil
+          from pathlib import Path
+
+          source = Path("docs/site")
+          output = Path(os.environ["SHOWCASE_OUTPUT"])
+          output.mkdir()
+          for filename in ("index.html", "styles.css", "showcase.js"):
+              shutil.copyfile(source / filename, output / filename)
+          shutil.copytree(source / "assets", output / "assets")
+          repository = "https://github.com/" + os.environ["GITHUB_REPOSITORY"]
+          revision = os.environ["GITHUB_SHA"]
+          page = output / "index.html"
+          contents = page.read_text(encoding="utf-8")
+          contents = contents.replace('href="../../"', f'href="{html.escape(repository, quote=True)}"')
+          source_url = html.escape(f"{repository}/blob/{revision}/", quote=True)
+          contents = contents.replace('href="../../', f'href="{source_url}')
+          page.write_text(contents, encoding="utf-8")
+          PY
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/repair-showcase
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy showcase
+        id: deployment
+        uses: actions/deploy-pages@v4

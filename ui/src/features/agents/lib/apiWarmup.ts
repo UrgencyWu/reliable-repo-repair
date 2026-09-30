@@ -103,7 +103,7 @@ function warmApiRequests(
     return original.call(window, input, init)
   }
 
-  window.fetch = patched
+  window.fetch = Object.assign(patched, original)
 }
 
 /** The sidebar page endpoint; the script appends the preference-dependent query. */

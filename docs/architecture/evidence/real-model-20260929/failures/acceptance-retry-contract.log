@@ -1,0 +1,104 @@
+FFFFFFFFFFF
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (status=501)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 8, in test_contract
+    self.assertEqual(retryable(status), status == 429 or 500 <= status < 600)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False != True
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (status=599)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 8, in test_contract
+    self.assertEqual(retryable(status), status == 429 or 500 <= status < 600)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False != True
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=2, attempt=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 6 != 8
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=2, attempt=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 8 != 16
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=2, attempt=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 10 != 32
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=3, attempt=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 9 != 12
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=3, attempt=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 12 != 24
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=3, attempt=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 15 != 48
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=5, attempt=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 15 != 20
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=5, attempt=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 20 != 40
+
+======================================================================
+FAIL: test_contract (test_supplementary.ContractAudit.test_contract) (base=5, attempt=4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/data/acceptance-audit/acceptance-retry-contract/checkout/test_supplementary.py", line 12, in test_contract
+    self.assertEqual(next_delay(503, attempt, base, 100), min(base * 2 ** attempt, 100))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 25 != 80
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=11)

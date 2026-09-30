@@ -1,0 +1,81 @@
+name: Repair MVP
+
+on:
+  pull_request:
+    paths:
+      - 'agent/**'
+      - 'ui/**'
+      - 'scripts/repair_*.py'
+      - 'tests/repair/**'
+      - 'tests/e2e/fake_llm.py'
+      - 'tests/e2e/repair-tests/**'
+      - 'tests/e2e/playwright.repair.config.ts'
+      - 'deploy/repair/**'
+      - 'compose.repair.yaml'
+      - '.dockerignore'
+      - '.github/workflows/repair-mvp.yml'
+      - '*lock*'
+      - '*package*'
+      - 'pyproject.toml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: '24.13.1'
+      - uses: docker/setup-buildx-action@v3
+      - name: Install fixed JS tools and browser
+        run: |
+          npm install --global pnpm@11.22.0
+          pnpm install --frozen-lockfile --filter open-swe-dashboard... --filter open-swe --filter open-swe-e2e
+          pnpm --dir tests/e2e exec playwright install --with-deps chromium
+      - name: Frontend types and focused tests
+        run: |
+          pnpm --dir ui run typecheck
+          pnpm --dir ui exec tsc --noEmit --strict --skipLibCheck --target ES2022 --module NodeNext --moduleResolution NodeNext --types node ../tests/e2e/playwright.repair.config.ts ../tests/e2e/repair-tests/repair.spec.ts ../tests/e2e/repair-tests/open-demo.mts
+          pnpm --dir ui exec vitest run src/features/repair/RepairTasks.test.tsx src/lib/appLocation.test.ts src/lib/perf/fetchTiming.test.ts src/features/agents/lib/apiWarmup.test.ts src/features/agents/terminal/ghostty/surface.test.ts server/backend-proxy.test.ts
+          pnpm exec oxlint ui/src/features/repair ui/src/routes/repair tests/e2e/repair-tests
+      - name: Fresh Compose environment and locked images
+        run: |
+          python3 scripts/repair_init.py
+          docker compose --env-file .env.repair -f compose.repair.yaml up --build -d --wait --wait-timeout 180
+      - name: Python types, lint and actual database/runtime tests
+        run: |
+          docker compose --env-file .env.repair -f compose.repair.yaml exec -T backend sh -ec '
+            ruff check agent/repair tests/repair scripts/repair_demo.py scripts/repair_init.py scripts/repair_acceptance_fixtures.py
+            ruff format --check agent/repair tests/repair scripts/repair_demo.py scripts/repair_init.py scripts/repair_acceptance_fixtures.py
+            ty check agent/repair tests/repair scripts/repair_demo.py scripts/repair_init.py scripts/repair_acceptance_fixtures.py
+            TEST_ANALYTICS_POSTGRES_URI="$POSTGRES_URI" REPAIR_TEST_RUNTIME_URL=http://127.0.0.1:2024 REPAIR_TEST_REDIS_URL="$REPAIR_REDIS_URL" \
+              pytest tests/repair --junitxml=/data/repair-test-results.xml -q
+            python -c "import xml.etree.ElementTree as E; r=E.parse(\"/data/repair-test-results.xml\"); assert all(int(s.get(\"skipped\", 0)) == 0 for s in r.iter(\"testsuite\")), \"Integration skip is not acceptance\""
+          '
+      - name: Actual browser through dashboard and backend
+        env:
+          REPAIR_COMPOSE_ACCEPTANCE: "1"
+          REPAIR_UI_URL: http://127.0.0.1:3012
+          REPAIR_RUNTIME_URL: http://127.0.0.1:2032
+        run: |
+          mkdir -p .tools/repair-demo
+          docker compose --env-file .env.repair -f compose.repair.yaml cp backend:/data/demo/session.json .tools/repair-demo/session.json
+          chmod 600 .tools/repair-demo/session.json
+          pnpm --dir tests/e2e exec playwright test --config playwright.repair.config.ts
+      - name: Failure diagnostics
+        if: failure()
+        run: docker compose --env-file .env.repair -f compose.repair.yaml logs --no-color --tail 150
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: repair-browser-failure
+          path: .tools/repair-browser-artifacts/**/test-failed-*.png
+          if-no-files-found: ignore
+      - name: Stop this job's environment
+        if: always()
+        run: docker compose --env-file .env.repair -f compose.repair.yaml down --volumes

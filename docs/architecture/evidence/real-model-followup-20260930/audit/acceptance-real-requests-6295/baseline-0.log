@@ -1,0 +1,20 @@
+F
+======================================================================
+FAIL: test_two_redirect_history_is_acyclic (test_target.IssueRegression.test_two_redirect_history_is_acyclic)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-6295/repo/test_target.py", line 45, in test_two_redirect_history_is_acyclic
+    self.assertTrue(
+    ~~~~~~~~~~~~~~~^
+        all(child is not earlier for child in earlier.history),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "Issue #6295 history cycle",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: False is not true : Issue #6295 history cycle
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=1)

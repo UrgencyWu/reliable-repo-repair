@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="代码仓库修复系统：PostgreSQL 持久意图、Redis Streams 消息交付、独立 Worker、Agent 执行、不可变补丁与独立验证。">
+    <meta property="og:title" content="Reliable Repo Repair">
+    <meta property="og:description" content="任务创建、可靠派发、代码修复、补丁导出与独立验证。查看系统架构、执行流程和验证结果。">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#111713">
+    <title>Reliable Repo Repair · 代码仓库修复与独立验证</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="showcase.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <header class="header">
+      <a class="brand" href="#" aria-label="Reliable Repo Repair 首页">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 5v11a8 8 0 0 0 8 8h8M16 8h8v8M24 8 13 19"/><circle cx="8" cy="5" r="2"/><circle cx="24" cy="24" r="2"/></svg>
+        <span>REPO REPAIR<span class="brand-sub">REPAIR EXECUTION SYSTEM</span></span>
+      </a>
+      <nav aria-label="主要导航">
+        <a href="#principles">功能</a>
+        <a href="#architecture">架构</a>
+        <a href="#preview">界面</a>
+        <a class="nav-cta" href="../../README.md">README <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot"></span> REPOSITORY REPAIR <span class="eyebrow-divider">/</span> INDEPENDENT VALIDATION</p>
+          <h1 id="hero-title">代码仓库修复<br>与独立验证<span class="accent">。</span></h1>
+          <p class="hero-en">Repair. Recover. Verify.</p>
+          <p class="hero-description">选择仓库 fixture、目标提交与失败命令，系统完成任务派发、Agent 代码修改、补丁导出与干净环境验证。通过 Dashboard 查看状态、diff 和逐项验证日志。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#start">启动修复系统 <span aria-hidden="true">↗</span></a>
+            <a class="button secondary" href="../../">查看源码 <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="hero-note">任务管理 · 可靠派发 · 执行恢复 · 补丁验证</p>
+        </div>
+
+        <div class="repair-window" aria-label="修复链路示意，可切换查看派发、补丁与验证">
+          <div class="window-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>repair / arithmetic</span><span class="window-tag">流程示意</span></div>
+          <div class="window-body">
+            <div class="window-heading"><span>INDEPENDENT VALIDATION</span><span class="pass-badge">PASS</span></div>
+            <h2>补丁导出与独立验证。</h2>
+            <div class="switches" data-switch-group="repair">
+              <button type="button" aria-pressed="false" aria-controls="dispatch-panel" data-panel="dispatch-panel">01 派发</button>
+              <button type="button" aria-pressed="true" aria-controls="patch-panel" data-panel="patch-panel">02 补丁</button>
+              <button type="button" aria-pressed="false" aria-controls="validation-panel" data-panel="validation-panel">03 验证</button>
+            </div>
+            <div id="dispatch-panel" class="example-panel" data-group="repair">
+              <p class="code-label">POSTGRESQL → REDIS STREAM → WORKER</p>
+              <pre><code>Task + Run + DispatchIntent
+<span class="code-muted">// 在同一个事务中保存</span>
+
+XADD:     intent_id
+consume:  XREADGROUP / XAUTOCLAIM
+claim:    PostgreSQL row lock
+owner:    lease + fencing token
+unknown:  RECONCILING</code></pre>
+              <p>Runtime 创建结果未知时，按关联元数据查找已有执行。</p>
+            </div>
+            <div id="patch-panel" class="example-panel" data-group="repair">
+              <p class="code-label">CANDIDATE.PATCH <span>calc.py</span></p>
+              <pre><code><span class="code-muted">@@ -1,2 +1,2 @@</span>
+ def add(a, b):
+<span class="diff-remove">-    return a - b</span>
+<span class="diff-add">+    return a + b</span></code></pre>
+              <div class="patch-meta"><span>EXACT BASE COMMIT</span><span>SHA-256</span><span>IMMUTABLE</span></div>
+              <p>候选保存原始字节与 hash，交给新的干净 checkout。</p>
+            </div>
+            <div id="validation-panel" class="example-panel" data-group="repair">
+              <p class="code-label">FRESH CHECKOUT · FIXED COMMANDS</p>
+              <ul class="check-list">
+                <li><span>BASELINE</span><span>失败已复现 <b>exit 1</b></span></li>
+                <li><span>PATCH CHECK / APPLY</span><span>通过 <b>exit 0</b></span></li>
+                <li><span>TARGET</span><span>通过 <b>exit 0</b></span></li>
+                <li><span>REGRESSION</span><span>通过 <b>exit 0</b></span></li>
+              </ul>
+              <p>只有独立验证 PASS，任务才进入 COMPLETED。</p>
+            </div>
+            <div class="window-footer"><span class="status-dot"></span><span>arithmetic fixture / 流程示意</span><span aria-hidden="true">↳</span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="facts container" aria-label="项目概况">
+        <div><strong>05<span> services</span></strong><p>PostgreSQL · Redis · Backend · Worker · Dashboard</p></div>
+        <div><strong>02<span> pages</span></strong><p>任务创建 / 列表 · 任务详情 / 验证证据</p></div>
+        <div><strong>PASS<span> → complete</span></strong><p>独立验证是业务成功的必要条件</p></div>
+      </div>
+
+      <section id="principles" class="section container" aria-labelledby="principles-title">
+        <div class="section-heading"><div><p class="eyebrow">01 / CORE CAPABILITIES</p><h2 id="principles-title">任务管理、可靠派发，<br>代码执行、独立验证。</h2></div><p>Task → Agent → Patch<br><span class="accent">→ Independent Validation</span></p></div>
+        <div class="principle-grid">
+          <article class="principle"><span class="card-number">01</span><h3>任务与持久派发</h3><p>任务、Run 与派发意图同事务保存。Redis Stream 交付 Intent ID，PostgreSQL 租约管理执行权。</p><span class="technical-label">POSTGRESQL + REDIS STREAMS</span></article>
+          <article class="principle"><span class="card-number">02</span><h3>独立 Worker 执行</h3><p>派发、观察、候选收集与验证在独立进程运行。API 在 Worker 停止时继续接收排队任务。</p><span class="technical-label">STANDALONE WORKER</span></article>
+          <article class="principle"><span class="card-number">03</span><h3>租约接管与对账</h3><p>关联业务 Run 与 Runtime Run。Worker 重启后接管过期租约，查询未知创建结果并校验 owner token。</p><span class="technical-label">LEASE & RECONCILIATION</span></article>
+          <article class="principle"><span class="card-number">04</span><h3>补丁重放与验证</h3><p>固定 base、补丁 hash 和测试计划。在干净 checkout 复现失败、应用补丁、运行目标与回归命令。</p><span class="technical-label">INDEPENDENT VALIDATION</span></article>
+        </div>
+      </section>
+
+      <section id="architecture" class="section architecture-section" aria-labelledby="architecture-title">
+        <div class="container">
+          <div class="section-heading"><div><p class="eyebrow">02 / SYSTEM ARCHITECTURE</p><h2 id="architecture-title">五个服务，一条可恢复的数据流。</h2></div><a class="text-link" href="../../compose.repair.yaml">查看服务配置 <span aria-hidden="true">↗</span></a></div>
+          <div class="architecture-grid">
+            <article class="service"><span class="technical-label">01 / INTERFACE</span><h3>Dashboard</h3><p>创建与查询任务<br>只读 diff / timeline / logs</p><span class="stack">React · TypeScript · pnpm</span></article>
+            <article class="service"><span class="technical-label">02 / RUNTIME</span><h3>Backend</h3><p>Repair API 与原认证<br>Open SWE / LangGraph 执行</p><span class="stack">FastAPI · Python 3.14</span></article>
+            <article class="service highlight-service"><span class="technical-label">03 / ORCHESTRATION</span><h3>Repair Worker</h3><p>派发 / 观察 / 对账<br>候选收集 / 独立验证</p><span class="stack">Async Python · Runtime API</span></article>
+            <article class="service"><span class="technical-label">04 / PERSISTENCE</span><h3>PostgreSQL</h3><p>Task / Run / Intent / Event<br>Candidate / Validation</p><span class="stack">Transactions · Leases</span></article>
+            <article class="service"><span class="technical-label">05 / DELIVERY</span><h3>Redis Streams</h3><p>Intent ID 消息交付<br>消费组 / 待确认消息接管</p><span class="stack">XADD · XREADGROUP · XAUTOCLAIM</span></article>
+          </div>
+          <h3 class="flow-title">一次修复的数据流</h3>
+          <ol class="data-flow" aria-label="从任务提交到结果查询的数据流">
+            <li><span>01 / COMMIT</span><strong>API → PostgreSQL</strong><p>同事务保存 Task、Run、Intent 与初始事件，返回 202。</p></li>
+            <li><span>02 / PUBLISH</span><strong>Intent → Redis Stream</strong><p>Worker 扫描到期意图，只投递 <code>intent_id</code>。</p></li>
+            <li><span>03 / CLAIM</span><strong>Stream → Worker → PostgreSQL</strong><p>消费组交付消息，Worker 按 ID 取得数据库租约。</p></li>
+            <li><span>04 / EXECUTE</span><strong>Worker → Runtime</strong><p>原 Open SWE Agent 修改固定提交上的工作区。</p></li>
+            <li><span>05 / VERIFY</span><strong>Patch → Validator → PostgreSQL</strong><p>保存不可变补丁，在干净检出中验证并写回结果。</p></li>
+          </ol>
+          <div class="workspace-flow"><span>Agent checkout</span><span class="flow-arrow" aria-hidden="true">→</span><span>Immutable patch + SHA-256</span><span class="flow-arrow" aria-hidden="true">→</span><span class="accent">Fresh Validator checkout</span></div>
+          <p class="architecture-note">PostgreSQL 是任务与派发状态的事实来源；Redis 只交付消息。Backend 与 Worker 共享本地工作卷，LangGraph Runtime 保存 Agent 执行状态。</p>
+          <h3 class="flow-title">故障发生时如何继续</h3>
+          <div class="recovery-grid">
+            <p><strong>发布失败</strong><span>Intent 留在数据库，下轮重试 XADD。</span></p>
+            <p><strong>重复投递</strong><span>数据库行锁与租约只允许一个 Worker 领取。</span></p>
+            <p><strong>消费后崩溃</strong><span>待确认消息经 XAUTOCLAIM 接管。</span></p>
+            <p><strong>取得租约后崩溃</strong><span>租约到期后对账 Runtime 执行身份。</span></p>
+            <p><strong>Stream 丢失</strong><span>从 PostgreSQL 的待处理 Intent 重建消息。</span></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="preview" class="section container" aria-labelledby="preview-title">
+        <div class="section-heading"><div><p class="eyebrow">03 / ACTUAL DASHBOARD</p><h2 id="preview-title">从创建，到验证证据。</h2></div><div class="switches screenshot-switches" data-switch-group="screenshots"><button type="button" aria-pressed="false" aria-controls="list-screenshot" data-panel="list-screenshot">任务列表</button><button type="button" aria-pressed="true" aria-controls="patch-screenshot" data-panel="patch-screenshot">补丁与验证</button></div></div>
+        <figure id="list-screenshot" class="screenshot" data-group="screenshots"><div class="screenshot-bar"><span class="status-dot"></span> DASHBOARD / REPAIR TASKS <span>实际截图</span></div><img src="assets/repair-list.png" width="1280" height="720" alt="Repair 任务创建表单与任务列表，包含 fixture、精确 commit SHA 和失败命令" loading="lazy"><figcaption>任务创建与分页列表：选择仓库 fixture、精确 commit SHA 和失败命令，查看任务状态与执行时间。</figcaption></figure>
+        <figure id="patch-screenshot" class="screenshot" data-group="screenshots"><div class="screenshot-bar"><span class="status-dot"></span> DASHBOARD / INDEPENDENT VALIDATION <span>实际截图</span></div><img src="assets/repair-patch.png" width="1280" height="720" alt="arithmetic fixture 的实际补丁与独立验证 PASS，包含 baseline、patch check/apply、target 和 regression" loading="lazy"><figcaption>arithmetic fixture 的补丁与独立验证结果：展示修改文件、patch SHA-256、原失败复现、补丁应用、目标测试与回归测试。</figcaption></figure>
+      </section>
+
+      <section class="section container evidence" aria-labelledby="evidence-title">
+        <div><p class="eyebrow">04 / EXECUTION RECORDS</p><h2 id="evidence-title">任务可追踪，<br>结果可核对。</h2><p class="evidence-intro">任务、业务 Run、Runtime Run、候选补丁与验证记录通过 ID 关联。详情页将执行事件、修改内容和检查结果集中呈现，支持从最终状态追溯到具体命令与输出。</p><a class="text-link" href="../../agent/repair/api_models.py">查看结果数据结构 <span aria-hidden="true">↗</span></a></div>
+        <div class="scope-list">
+          <div><span class="scope-badge">TASK / RUN</span><h3>关联执行身份与事件</h3><p>保存用户归属、输入参数、任务状态和 deadline，关联 thread 与 Runtime Run，按顺序记录派发、执行、验证与完成事件。</p></div>
+          <div><span class="scope-badge">PATCH / HASH</span><h3>持久保存不可变补丁</h3><p>候选记录包含精确 base commit、原始 patch 字节、SHA-256 和修改文件列表，支持下载与独立 checkout 重放。</p></div>
+          <div><span class="scope-badge">CHECKS / LOGS</span><h3>逐项保存验证结果</h3><p>记录 baseline、patch check/apply、target 与 regression 的退出码、输出、耗时和超时信息，按需加载到详情页。</p></div>
+        </div>
+      </section>
+
+      <section id="start" class="section container" aria-labelledby="start-title">
+        <div class="start-card"><div><p class="eyebrow">05 / RUN THE SYSTEM</p><h2 id="start-title">运行修复系统。</h2><p>从仓库根目录启动 PostgreSQL、Redis、Backend、Worker 与 Dashboard 五个服务。内置 arithmetic 示例使用确定性模型执行完整修复链。需要 Docker Compose v2 和 Python 3.9+。</p><a class="text-link" href="../../README.md#快速启动">启动与登录步骤 <span aria-hidden="true">↗</span></a></div><div class="command-card"><div class="command-heading"><span>FIRST RUN / COMPOSE</span><button id="copy-command" type="button">复制命令</button></div><pre><code id="start-command"># 仅首次生成；已有 .env.repair 时省略
+python3 scripts/repair_init.py
+docker compose --env-file .env.repair \
+  -f compose.repair.yaml up --build -d \
+  --wait --wait-timeout 180</code></pre><p id="copy-status" aria-live="polite">按 README 的登录步骤打开内置修复示例。</p></div></div>
+      </section>
+
+      <section class="container resource-section" aria-labelledby="resource-title">
+        <h2 id="resource-title" class="eyebrow">EXPLORE THE REPOSITORY</h2>
+        <div class="resource-grid"><a href="../../README.md"><span>01 / OVERVIEW</span><strong>项目 README <span aria-hidden="true">↗</span></strong><p>功能、流程、API 与启动方式</p></a><a href="../../agent/repair/stream.py"><span>02 / STREAM DELIVERY</span><strong>消息交付 <span aria-hidden="true">↗</span></strong><p>发布、消费组、接管与 Stream 重建</p></a><a href="../../agent/repair/models.py"><span>03 / DATA MODEL</span><strong>数据模型 <span aria-hidden="true">↗</span></strong><p>Task、Run、Intent、候选与验证记录</p></a><a href="../../compose.repair.yaml"><span>04 / DEPLOYMENT</span><strong>服务部署 <span aria-hidden="true">↗</span></strong><p>五服务配置、网络与数据卷</p></a></div>
+      </section>
+    </main>
+
+    <footer class="footer container"><div><strong>RELIABLE REPO REPAIR</strong><p>Based on <a href="https://github.com/langchain-ai/open-swe">Open SWE</a> by LangChain and its contributors.</p></div><div class="footer-links"><a href="../../ATTRIBUTION.md">来源声明</a><a href="../../LICENSE">MIT License</a><a href="../../README.en.md" lang="en">English README</a><a href="#main">回到顶部 ↑</a></div></footer>
+  </body>
+</html>

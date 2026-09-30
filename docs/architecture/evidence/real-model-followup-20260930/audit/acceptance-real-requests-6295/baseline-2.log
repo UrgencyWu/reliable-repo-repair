@@ -1,0 +1,20 @@
+F
+======================================================================
+FAIL: test_four_redirect_history_is_ordered_and_acyclic (test_supplementary.Audit.test_four_redirect_history_is_ordered_and_acyclic)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-6295/repo/test_supplementary.py", line 15, in test_four_redirect_history_is_ordered_and_acyclic
+    self.assertEqual(earlier.history, response.history[:index])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [<Response [302]>] != [<Response [302]>]
+
+First differing element 0:
+<Response [302]>
+<Response [302]>
+
+  [<Response [302]>]
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+FAILED (failures=1)

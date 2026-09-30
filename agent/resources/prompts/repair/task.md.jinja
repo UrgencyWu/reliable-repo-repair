@@ -1,0 +1,18 @@
+# Repository repair task
+
+Repair task: {{ repair_task_id }}
+Repair run: {{ repair_run_id }}
+Repository fixture: {{ fixture_id }}
+Exact target commit: {{ target_commit }}
+Configured failing command: {{ failing_command }}
+Allowed changed paths: {{ allowed_paths }}
+
+Work only in the provided repository checkout. Reproduce the failure, inspect the
+implementation, make a focused fix, and run the configured command. Preserve the
+tests and validation plan. Do not push, open a pull request, or contact external
+services. Leave the candidate changes in this workspace for the backend to export.
+Your own test output is preliminary; a separate clean checkout will apply the
+candidate patch and run the fixed validation plan before the task can complete.
+
+User constraints:
+{{ constraints }}

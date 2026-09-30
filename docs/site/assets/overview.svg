@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+  <title id="title">Reliable Repo Repair</title>
+  <desc id="desc">PostgreSQL persists repair intents, Redis Streams delivers intent IDs to a Worker, and the Agent patch is independently validated.</desc>
+  <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0v40" fill="none" stroke="#27352b" stroke-width=".5"/></pattern></defs>
+  <rect width="1200" height="400" rx="14" fill="#111713"/>
+  <rect width="1200" height="400" rx="14" fill="url(#grid)"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <circle cx="55" cy="50" r="4" fill="#c4ef9b"/>
+    <text x="70" y="55" font-size="12" fill="#c4ef9b" letter-spacing="2">REPOSITORY REPAIR / INDEPENDENT VALIDATION</text>
+    <text x="50" y="126" font-size="48" fill="#f0f2e9" font-weight="600" letter-spacing="-1.5">Reliable Repo Repair</text>
+    <text x="50" y="170" font-size="23" fill="#c4ef9b">Repair. Recover. Verify.</text>
+    <text x="50" y="206" font-size="14" fill="#a8b6aa">PostgreSQL intent → Redis Stream → Worker lease → Agent → Independent validation</text>
+    <g transform="translate(50 260)">
+      <g fill="#1b261e" stroke="#52654f"><rect width="235" height="78"/><rect x="280" width="235" height="78"/><rect x="560" width="235" height="78"/><rect x="840" width="235" height="78" stroke="#c4ef9b"/></g>
+      <g fill="#f0f2e9" font-size="17"><text x="20" y="32">Durable dispatch</text><text x="300" y="32">Open SWE Agent</text><text x="580" y="32">Immutable patch</text><text x="860" y="32">Independent Validator</text></g>
+      <g fill="#a8b6aa" font-size="11"><text x="20" y="56">PostgreSQL / Redis Stream</text><text x="300" y="56">Worker / Runtime / tools</text><text x="580" y="56">Exact base / bytes / SHA-256</text><text x="860" y="56">Fresh checkout / fixed tests</text></g>
+      <g fill="none" stroke="#c4ef9b" stroke-width="1.5"><path d="M245 39h25m-7-5 7 5-7 5M525 39h25m-7-5 7 5-7 5M805 39h25m-7-5 7 5-7 5"/></g>
+    </g>
+    <text x="50" y="374" font-size="11" fill="#a8b6aa">Exact commit · Immutable patch · Fixed checks · Traceable results</text>
+    <text x="1150" y="55" text-anchor="end" font-size="12" fill="#a8b6aa">MIT</text>
+  </g>
+</svg>

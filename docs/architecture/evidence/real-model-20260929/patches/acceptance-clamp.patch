@@ -1,0 +1,8 @@
+diff --git a/subject.py b/subject.py
+index 8864a1df5a0f0d58a391919a4e1eb188e1817f0f..081500b8fb259955d423a88c970ae10c51fe6f51 100644
+--- a/subject.py
++++ b/subject.py
+@@ -1,2 +1,2 @@
+ def solve(value, low, high):
+-    return min(value, low)
++    return max(low, min(value, high))

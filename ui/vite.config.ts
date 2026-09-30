@@ -14,6 +14,7 @@ import type { Plugin } from "vite"
 // deployed dashboard serves; the rest exist when the backend is the mock harness,
 // and a browser navigates to `/fake-gh` mid-login, so dev has to reach them too.
 const BACKEND_PREFIXES = [
+  "/api/repair-tasks",
   "/dashboard/api",
   "/webhooks",
   "/mock",
@@ -31,7 +32,10 @@ const BACKEND_PREFIXES = [
 // The harness-owned subset: everything but the two a deployment fronts and
 // `/static`, which would shadow nitro's own assets.
 const E2E_HARNESS_PREFIXES = BACKEND_PREFIXES.filter(
-  (prefix) => !["/dashboard/api", "/webhooks", "/static"].includes(prefix)
+  (prefix) =>
+    !["/api/repair-tasks", "/dashboard/api", "/webhooks", "/static"].includes(
+      prefix
+    )
 )
 
 function matchesBackendPrefix(url?: string): boolean {
@@ -317,6 +321,7 @@ const config = defineConfig({
       // would shadow nitro's assets.
       handlers: IS_PRODUCTION
         ? [
+            "/api/repair-tasks",
             "/dashboard/api",
             "/webhooks",
             // A built server fronting the mock harness fronts its fake-SaaS and

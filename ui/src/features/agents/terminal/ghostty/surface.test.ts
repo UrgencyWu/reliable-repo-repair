@@ -47,7 +47,7 @@ describe("Ghostty terminal browser input", () => {
     expect(
       isTerminalCopyShortcut(
         { ...event, ctrlKey: true, metaKey: false },
-        "Linux"
+        "Linux x86_64"
       )
     ).toBe(false)
   })
@@ -69,7 +69,10 @@ describe("Ghostty terminal browser input", () => {
       null,
     ])
     expect(
-      isTerminalLinkPointerGesture({ ctrlKey: true, metaKey: false }, "Linux")
+      isTerminalLinkPointerGesture(
+        { ctrlKey: true, metaKey: false },
+        "Linux x86_64"
+      )
     ).toBe(true)
     expect(terminalWheelArrowData(-1, true)).toBe("\u001bOA")
     expect(

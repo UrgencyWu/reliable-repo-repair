@@ -1,0 +1,30 @@
+{
+  "repository": "psf/requests",
+  "tag": "v2.34.0",
+  "tag_commit": "0b401c76b6e80a4eecf3c690085b2553f6e261ca",
+  "issue": "https://github.com/psf/requests/issues/7432",
+  "extraction": "src/requests package and LICENSE; not a full upstream checkout",
+  "blobs": {
+    "src/requests/__init__.py": "ad842400b99c65c91988579e76419cf48224a680",
+    "src/requests/__version__.py": "872a8aaa227c3b6a38008d06c4c433c80e30a3e9",
+    "src/requests/_internal_utils.py": "0466a7d347db4ed34a37db51b75fc8e80bc06055",
+    "src/requests/_types.py": "963867b0126c72d73f9c4edca94f5bd4d78d9515",
+    "src/requests/adapters.py": "40fe8a6d5a6168ba7303b91477af925db0aa3914",
+    "src/requests/api.py": "eeb3b54d7f27e2c843080dfe81dfdb0d460c2b31",
+    "src/requests/auth.py": "2af481dbf59e31965bde74c2e27d73517a39d7ac",
+    "src/requests/certs.py": "4f85ac070bc0230af8155bcadfaa96165268cede",
+    "src/requests/compat.py": "deab3c091fed207315c5af60fb415d7407a08b48",
+    "src/requests/cookies.py": "2e3fc215095fad13817562bbaee871cba57eec08",
+    "src/requests/exceptions.py": "cb5e9510e3b1cf4804ac6091fd7fdb55e9f2745b",
+    "src/requests/help.py": "9269cc71263e3f5938a89a9d6c2fed5a4274cc14",
+    "src/requests/hooks.py": "11ff9e9f27e76f5ef6b9b609e88c2f418d655e16",
+    "src/requests/models.py": "4142f2a4bbf39820b46b414a15af805a34b1a013",
+    "src/requests/packages.py": "5ab3d8e250de8475cb22553f564e5444e02c7460",
+    "src/requests/py.typed": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "src/requests/sessions.py": "8f13887d187deda256e08f305950a56a9c145ea5",
+    "src/requests/status_codes.py": "6c59d6baec83bd82055106a5d2cea08fa1195274",
+    "src/requests/structures.py": "7675eaf15a181dada66c02bb0468dc00d6f523b3",
+    "src/requests/utils.py": "120336ddc6ed5d802735685349c3c3cd42e0c597",
+    "LICENSE": "67db8588217f266eb561f75fae738656325deac9"
+  }
+}

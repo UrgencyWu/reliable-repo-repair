@@ -1,0 +1,8 @@
+diff --git a/subject.py b/subject.py
+index 2ef1e182fb89f7312858fff83cbe1343ee4458ea..02482cfa5fe6e202b7852dfa1e38ca42e4762c94 100644
+--- a/subject.py
++++ b/subject.py
+@@ -1,2 +1,2 @@
+ def solve(start, stop):
+-    return list(range(start, stop))
++    return list(range(start, stop + 1))

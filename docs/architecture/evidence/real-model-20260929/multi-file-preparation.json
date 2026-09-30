@@ -1,0 +1,44 @@
+{
+  "kind": "synthetic-multi-file-preparation-not-model-acceptance",
+  "sample_count": 3,
+  "model_calls": 0,
+  "fixtures_sha256": "5cad8f5890eab5fd66346585f80116a323108ceda5687d10ff53b736ca3804f7",
+  "samples": [
+    {
+      "sample_id": "acceptance-pagination-contract",
+      "target_commit": "dabbcdfeba520d9a0a681b213e647f0fe3d3671d",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "e486e8b65082bdafc1c86b6b15337c0694c93c559577dcf970b71bb3e2b923ef",
+      "source_file_count": 2
+    },
+    {
+      "sample_id": "acceptance-retry-contract",
+      "target_commit": "329f6c7c85740ab5bd266208f91dd507bd569e69",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "0ec538f5910041eb87495035084ad88c49583c0091d7ea4a025241b8bde4cd9f",
+      "source_file_count": 2
+    },
+    {
+      "sample_id": "acceptance-export-contract",
+      "target_commit": "1b2aecf597aa399b860ec44b0a52f9ef70587af3",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "fd486358f773d989dca77e422d465c99a2f86f7cf4fb9fadee64666616c7b4a1",
+      "source_file_count": 2
+    }
+  ]
+}

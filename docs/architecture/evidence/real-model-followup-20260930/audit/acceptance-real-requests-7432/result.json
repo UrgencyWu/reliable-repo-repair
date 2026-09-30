@@ -1,0 +1,22 @@
+{
+  "sample_id": "acceptance-real-requests-7432",
+  "task_id": "01a0f038-37ae-77cd-af8c-762f43a0bcdb",
+  "target_commit": "5ebebda5ebb6f7f7029fce12634e66c010405aaa",
+  "patch_sha256": "339e66a16e4143e34db814fffe1cf9e54e18d82c0a6e4b592ef5de9124a795f1",
+  "baseline_exit_codes": [
+    1,
+    0,
+    1
+  ],
+  "oracle_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "candidate_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "supplementary_pass": true
+}

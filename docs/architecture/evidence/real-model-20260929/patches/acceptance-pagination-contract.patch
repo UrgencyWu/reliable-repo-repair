@@ -1,0 +1,20 @@
+diff --git a/pagination.py b/pagination.py
+index 055d2626c026b3f507298490a536eabad528b858..aa091089577115a3d6acfdd816489f4c01f457da 100644
+--- a/pagination.py
++++ b/pagination.py
+@@ -1,5 +1,5 @@
+ def paginate(items, page, size):
+     if page < 1 or size < 1:
+         raise ValueError('positive page and size required')
+-    start = page * size
++    start = (page - 1) * size
+     return items[start:start + size]
+diff --git a/service.py b/service.py
+index 521f8732c03c5344689b0b98bbc9aa5fbfc6fe1e..8f26833d9ab09ada1276bd3a2b4be0f855e4573f 100644
+--- a/service.py
++++ b/service.py
+@@ -1,3 +1,3 @@
+ from pagination import paginate
+ def response(items, page, size):
+-    return {'items': paginate(items, page, size), 'has_next': (page + 1) * size < len(items)}
++    return {'items': paginate(items, page, size), 'has_next': page * size < len(items)}

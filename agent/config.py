@@ -476,3 +476,27 @@ ENV.var(
 ENV.var("BG_JOB_ISOLATED_LOOPS", "LangGraph background-job event-loop isolation flag.")
 ENV.var("DEBUG_TRACEMALLOC", "Start tracemalloc to attribute unclosed-session warnings.")
 ENV.var("DEBUG_TRACEMALLOC_FRAMES", "Frames tracemalloc records per allocation.", default="25")
+ENV.var(
+    "REPAIR_FIXTURES_FILE", "Trusted local repair fixtures and their immutable validation commands."
+)
+ENV.var("REPAIR_TASK_TIMEOUT_SECONDS", "Total repair task deadline.", default="300")
+ENV.var(
+    "REPAIR_ENABLED",
+    "Enable the standalone repair worker; the API never starts a repair dispatcher.",
+    default="false",
+)
+ENV.var("REPAIR_POLL_SECONDS", "Repair dispatch and observation polling interval.", default="1")
+ENV.var(
+    "REPAIR_REDIS_URL",
+    "Optional Redis Streams URL for repair dispatch delivery.",
+    secret=True,
+)
+ENV.var(
+    "REPAIR_VALIDATION_TIMEOUT_SECONDS",
+    "Deadline for each independent validation command.",
+    default="20",
+)
+ENV.var(
+    "REPAIR_EXECUTION_PATH",
+    "PATH available to repository setup and independent validation commands.",
+)

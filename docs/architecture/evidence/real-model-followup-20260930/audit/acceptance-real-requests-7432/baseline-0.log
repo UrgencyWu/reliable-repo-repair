@@ -1,0 +1,50 @@
+F
+======================================================================
+FAIL: test_delegating_stream_survives_307_redirect (test_target.IssueRegression.test_delegating_stream_survives_307_redirect)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/test_target.py", line 51, in test_delegating_stream_survives_307_redirect
+    response = session.put(
+        "https://example.invalid/upload",
+        data=DelegatingStream(BytesIO(payload)),
+        timeout=2,
+    )
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/src/requests/sessions.py", line 726, in put
+    return self.request("PUT", url, data=data, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/src/requests/sessions.py", line 635, in request
+    prep = self.prepare_request(req)
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/src/requests/sessions.py", line 541, in prepare_request
+    p.prepare(
+    ~~~~~~~~~^
+        method=method.upper(),
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        hooks=merge_hooks(request.hooks, self.hooks),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/src/requests/models.py", line 442, in prepare
+    self.prepare_body(data, files, json)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/src/requests/models.py", line 638, in prepare_body
+    body = self._encode_params(raw_data)
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/src/requests/models.py", line 168, in _encode_params
+    for k, vs in to_key_val_list(data):
+                 ~~~~~~~~~~~~~~~^^^^^^
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/src/requests/utils.py", line 404, in to_key_val_list
+    return list(value)
+TypeError: 'DelegatingStream' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/wsh/Documents/open-swe-ci-repair/.tools/real-model-20260929/real-issue-audit-v2/acceptance-real-requests-7432/repo/test_target.py", line 57, in test_delegating_stream_survives_307_redirect
+    self.fail(f"Issue #7432 reproduced: {exc}")
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Issue #7432 reproduced: 'DelegatingStream' object is not iterable
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

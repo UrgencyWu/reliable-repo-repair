@@ -5,7 +5,9 @@ substituted with a base64 JSON blob before execution. Prints a single JSON line.
 """
 
 import base64
+import hashlib
 import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -44,7 +46,17 @@ def repo_paths():
                 yield child
 
 
-def find_repo():
+def find_repo() -> Path:
+    if "repo_path" in PAYLOAD or "base_commit" in PAYLOAD:
+        requested = PAYLOAD.get("repo_path")
+        if not isinstance(requested, str) or not Path(requested).is_absolute():
+            raise ValueError("repair patch requires an absolute repo_path")
+        repo = Path(requested).resolve()
+        result = git(repo, ["rev-parse", "--show-toplevel"])
+        root = Path(result.stdout.decode().strip()).resolve()
+        if root != repo:
+            raise ValueError("repo_path must name the repository root")
+        return root
     seen = set()
     for path in repo_paths():
         if path in seen:
@@ -58,6 +70,18 @@ def find_repo():
             if root.exists():
                 return root
     raise RuntimeError("no git repository found in sandbox workspace")
+
+
+def patch_base(repo: Path) -> str:
+    if "repo_path" not in PAYLOAD and "base_commit" not in PAYLOAD:
+        return merge_base(repo)
+    requested = PAYLOAD.get("base_commit")
+    if not isinstance(requested, str) or not re.fullmatch(r"[0-9a-f]{40}", requested):
+        raise ValueError("repair patch requires a complete base_commit SHA")
+    resolved = commit_for(repo, requested)
+    if resolved != requested:
+        raise ValueError("base_commit is not an available commit in the repository")
+    return resolved
 
 
 def safe_ref(value):
@@ -129,9 +153,15 @@ def write_patch(repo, base):
 
 try:
     repo = find_repo()
-    base = merge_base(repo)
+    base = patch_base(repo)
     patch_path = write_patch(repo, base)
-    print(json.dumps({"ok": True, "path": str(patch_path), "size": patch_path.stat().st_size}))
+    result = {"ok": True, "path": str(patch_path), "size": patch_path.stat().st_size}
+    if "base_commit" in PAYLOAD:
+        result.update(
+            base_commit=base,
+            sha256=hashlib.sha256(patch_path.read_bytes()).hexdigest(),
+        )
+    print(json.dumps(result))
 except Exception as exc:
     print(json.dumps({"ok": False, "error": str(exc)}))
     sys.exit(1)

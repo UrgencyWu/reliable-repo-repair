@@ -1,0 +1,10 @@
+diff --git a/subject.py b/subject.py
+index 4182ded6921de370a49d0a381abb60d146eb3c6e..6582419ade62488fb28b592050a81e4299361256 100644
+--- a/subject.py
++++ b/subject.py
+@@ -1,2 +1,4 @@
++import re
++
+ def solve(value):
+-    return value.lower().replace(' ', '-')
++    return re.sub(r'\s+', '-', value.lower()).strip('-')

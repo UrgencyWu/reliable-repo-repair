@@ -1,0 +1,20 @@
+diff --git a/policy.py b/policy.py
+index c072a618d7461dd62e08326efb4c8807ed412fbb..d19f88d9abd2ef197031c89ae9203e22ed303938 100644
+--- a/policy.py
++++ b/policy.py
+@@ -1,2 +1,4 @@
++RETRYABLE_STATUSES = frozenset({429, 500, 502, 503, 504})
++
+ def retryable(status):
+-    return status >= 400
++    return status in RETRYABLE_STATUSES
+diff --git a/scheduler.py b/scheduler.py
+index 477cc5e7bee5057839f0132c0f7dcad2f7fb5377..d7afb27e300e404250b087a0dc3222bfe82cf367 100644
+--- a/scheduler.py
++++ b/scheduler.py
+@@ -2,4 +2,4 @@ from policy import retryable
+ def next_delay(status, attempt, base=2, cap=20):
+     if not retryable(status):
+         return None
+-    return min(base * attempt, cap)
++    return min(base * (attempt + 1), cap)

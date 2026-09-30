@@ -1,0 +1,505 @@
+{
+  "baseline": "ad545353e2cdb4c7ae1c419f966c82436b63e799",
+  "files": [
+    {
+      "path": ".dockerignore",
+      "exists": true,
+      "sha256": "b11f80002888bde620432086701dc6dec348bc1752407d52033b1337482dd5dd"
+    },
+    {
+      "path": ".github/workflows/repair-mvp.yml",
+      "exists": true,
+      "sha256": "f178338c1b8789e4d7a30f8419ece90c3f8f4e413077351b0ee3cd501ce8b0f0"
+    },
+    {
+      "path": ".gitignore",
+      "exists": true,
+      "sha256": "ef37e84218bb153d70f11b2205180c502cf14642d45500d61f31ff55bcfde58a"
+    },
+    {
+      "path": "ATTRIBUTION.md",
+      "exists": true,
+      "sha256": "161ea536a793792a390460f24926eab8c6dd9d75a2dbd5911e063fbb96fcae91"
+    },
+    {
+      "path": "README.md",
+      "exists": true,
+      "sha256": "7e15ca8cc63242096714132067e2a7142dc23e8ac2210691eb285f7375c31a69"
+    },
+    {
+      "path": "agent/api/app.py",
+      "exists": true,
+      "sha256": "a25deecdc9c3b8278fc452cc2b5368783ca7edd61f6b417551ef609b9820392e"
+    },
+    {
+      "path": "agent/config.py",
+      "exists": true,
+      "sha256": "3333f5bbeddd6fe303e4f997a306b96c9781d8b7bc2b03975fa41f0b8d578b3c"
+    },
+    {
+      "path": "agent/database/migrations/versions/0042_9edff2616cd3_repair_tasks_runs_and_durable_dispatch_.py",
+      "exists": true,
+      "sha256": "3f4c28a5c7e2f0758387abb394ade6b6b908893eb8c62678f4a52141681f2567"
+    },
+    {
+      "path": "agent/database/migrations/versions/0043_7a5b04c6bf56_repair_candidates_and_execution_leases.py",
+      "exists": true,
+      "sha256": "3a2a89212b0448655b0d34854c6c3c50dd65c4e64ad6110993ffb0c7e190466a"
+    },
+    {
+      "path": "agent/database/migrations/versions/0044_cded32b2d7d8_independent_repair_validation_evidence.py",
+      "exists": true,
+      "sha256": "c6fa21e5f0c749d05398a240d3cd11a6ebb321cd10d3c237ecb0eec399fddaaf"
+    },
+    {
+      "path": "agent/database/migrations/versions/0045_14940cd67eb6_repair_task_deadline_and_runtime_stop_.py",
+      "exists": true,
+      "sha256": "ebe00bf1217c847abd11cb0c88eb795ebce3a09243176ea374b3dd9303887741"
+    },
+    {
+      "path": "agent/repair/__init__.py",
+      "exists": true,
+      "sha256": "cf00b1e367d86fb3e986bffec62ba84fee038c3c563e1817a6e22bf5e0b121f7"
+    },
+    {
+      "path": "agent/repair/adapter.py",
+      "exists": true,
+      "sha256": "378af68e62bb14dfe09cfff34ac4b377d4e0a26fc26bbe0e20ea2eb8b59139cc"
+    },
+    {
+      "path": "agent/repair/api_models.py",
+      "exists": true,
+      "sha256": "03d73be27bb2e460f788ed2f41a4f8bbc0366fb90578ac73da2a9ae82929be97"
+    },
+    {
+      "path": "agent/repair/config.py",
+      "exists": true,
+      "sha256": "ce2720547cc9767ab8672c82aefe7d4b3faecf05bd443a6780630e5260424cb1"
+    },
+    {
+      "path": "agent/repair/dispatch.py",
+      "exists": true,
+      "sha256": "921e6651e362d901ea14ce77b3dca9ae9d6f80f34c6e293ef43b916fa35e5a3f"
+    },
+    {
+      "path": "agent/repair/dispatch_store.py",
+      "exists": true,
+      "sha256": "03f671d2faef55824256ac1e9863591914a5a5f2899775e68c378cce52b32ed0"
+    },
+    {
+      "path": "agent/repair/execution_store.py",
+      "exists": true,
+      "sha256": "a52d15c68e02bebd741927859ba75b7be57fb8f8b9f6cbb4bd0ecb1d50ffda3b"
+    },
+    {
+      "path": "agent/repair/models.py",
+      "exists": true,
+      "sha256": "221fcbb52e8705288936bb456ab2818ec02e1444a2d13bcce9761b30a88d2f59"
+    },
+    {
+      "path": "agent/repair/process.py",
+      "exists": true,
+      "sha256": "14b074f26d69f423fa1a6a7c9eae9fe47b5e488f0bdb99037d504b7e3715d936"
+    },
+    {
+      "path": "agent/repair/recovery_store.py",
+      "exists": true,
+      "sha256": "f860d90ccee8b0ed0361653aab9820974c4ea3c37fc583673d0c8daf8b2c367f"
+    },
+    {
+      "path": "agent/repair/repository.py",
+      "exists": true,
+      "sha256": "9c39caf9bfad46cf66ad340cd9cce2daf9f85faa9360fa2469fea445812cf6bf"
+    },
+    {
+      "path": "agent/repair/routes.py",
+      "exists": true,
+      "sha256": "06cf4c9afb714162eb9f8173e4b74025a61b0bb58198a502b27b3e4287cd8755"
+    },
+    {
+      "path": "agent/repair/service.py",
+      "exists": true,
+      "sha256": "22c1bd870308478c0656b40812e8965ef2b3a76175a98d42286077899dc619ae"
+    },
+    {
+      "path": "agent/repair/state.py",
+      "exists": true,
+      "sha256": "470323d12c61935ff6d329ee3155f6ec062dc846f3c06e82dda139162d3f97a2"
+    },
+    {
+      "path": "agent/repair/store.py",
+      "exists": true,
+      "sha256": "f6326fd29a5cb657b8ee7d5b56451a0e11d852d7923a5836fe0ab2dcc3b468ef"
+    },
+    {
+      "path": "agent/repair/validation.py",
+      "exists": true,
+      "sha256": "962f57556efde1cebe41310c0b89a502c3f7779a3a2b4fa9473b5b92632ce54f"
+    },
+    {
+      "path": "agent/repair/validation_store.py",
+      "exists": true,
+      "sha256": "173c9aaed380f0fbd63d0d282ef5eac02c6848abd93543f40ef77d13f9231e11"
+    },
+    {
+      "path": "agent/repair/worker.py",
+      "exists": true,
+      "sha256": "a094e6e46e1e20230f488f159468dbdf8fee2e1c4610a06f7dd8cbe4bbc0f06a"
+    },
+    {
+      "path": "agent/resources/prompts/repair/task.md.jinja",
+      "exists": true,
+      "sha256": "b3c536cd95654e60ec44e13d56d4e05e0ee52c6aff587a50ceb36d269e8b483f"
+    },
+    {
+      "path": "agent/resources/recovery_patch.py",
+      "exists": true,
+      "sha256": "1963b86d121584363973c966a6fdbbd981763cfb78c41ac546c12d566f023e1f"
+    },
+    {
+      "path": "compose.repair.yaml",
+      "exists": true,
+      "sha256": "70295667cdcde69cf2e0c6f7efa4730f1cdea1d681be31c37481a59711a40fbe"
+    },
+    {
+      "path": "deploy/repair/Dockerfile.backend",
+      "exists": true,
+      "sha256": "d9f5d427d7b9c77c65cbdc1fc2b83ca6913256da85ac06ad4e3fb4dd964b1eca"
+    },
+    {
+      "path": "deploy/repair/Dockerfile.ui",
+      "exists": true,
+      "sha256": "d5b672935fca53a1d166b48446501a4c8d27ecdcbeca038bbf7c3c3d30652b5d"
+    },
+    {
+      "path": "deploy/repair/README.md",
+      "exists": true,
+      "sha256": "62f8580001c2c48cc3eefb75a9267d2c38955055c4a8cdcaa640ecbd1bb2cfa7"
+    },
+    {
+      "path": "deploy/repair/start-backend.sh",
+      "exists": true,
+      "sha256": "d34172d6a90485ae005b820ae148cdf2794d8464c909cc29d9b74e16ef583c1c"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "exists": true,
+      "sha256": "a792ac54ef5e1c7be08973aee831f375018b3c33ee865545db2d83ab19a0113e"
+    },
+    {
+      "path": "docs/MVP_DEVELOPMENT_PLAN.md",
+      "exists": true,
+      "sha256": "a50af3cdd64ed772f21d0a3fcc993e9d6831e8ed6263ab3e17cdc8b2e8932d94"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "exists": true,
+      "sha256": "e12c95d5228d1bfcc331edf7b84297de749d45a2be8bb5d72e98610a08fd8cb1"
+    },
+    {
+      "path": "docs/adr/ADR-001-why-open-swe-as-upstream.md",
+      "exists": true,
+      "sha256": "4cfbd19875239da4a4e71906edbdf8cde19442b4ef986044f61d13cf6a1ec0d1"
+    },
+    {
+      "path": "docs/adr/ADR-002-spring-control-plane-python-execution.md",
+      "exists": true,
+      "sha256": "cacc997f572820203261da2fe785245c5aa3dcd2704eef3a97a21b2eb23b551f"
+    },
+    {
+      "path": "docs/adr/ADR-003-rabbitmq-asynchronous-execution.md",
+      "exists": true,
+      "sha256": "03667aafd4ef0c312597345a6abdb2cd50ba21d4ad723df1e7bdadddf644b2d1"
+    },
+    {
+      "path": "docs/adr/ADR-004-backend-state-vs-agent-state.md",
+      "exists": true,
+      "sha256": "9c3a6ea6130f5fb3561c9e7cf805355cbc5e8396b447c97e763f4a234c96d338"
+    },
+    {
+      "path": "docs/adr/ADR-005-sandbox-lifecycle-provider-strategy.md",
+      "exists": true,
+      "sha256": "b7489534b81c94da2d911e5bb7efe5b529524f82accae0854c25a1b36f774ecc"
+    },
+    {
+      "path": "docs/adr/ADR-006-retain-upstream-runtime-postgresql.md",
+      "exists": true,
+      "sha256": "f15708190f93563ae9a96845c2c7a99b462a5d93ea4a2b62f8ee647f9258851f"
+    },
+    {
+      "path": "docs/adr/ADR-007-python-first-control-plane.md",
+      "exists": true,
+      "sha256": "f37cce409c10e9dfbf79afde83093b5148465d070493f9687e1eb7820aa07c96"
+    },
+    {
+      "path": "docs/adr/ADR-008-reuse-infrastructure-by-capability.md",
+      "exists": true,
+      "sha256": "6d78706614c3fc5e26e952e10323faa5925b11b14b9e7691d837bf1bf2e8fbbb"
+    },
+    {
+      "path": "docs/adr/ADR-009-independent-clean-validation.md",
+      "exists": true,
+      "sha256": "1843bfcc8b634fac455d4c72be427062d5d9b6e55a549afc77f2d43c4d53a3a4"
+    },
+    {
+      "path": "docs/adr/ADR-010-dispatch-lease-reconciliation.md",
+      "exists": true,
+      "sha256": "7202a8fb24e0ef40d84c6068f0a9ae199b4545acb52a979a5e0c83306480ecfb"
+    },
+    {
+      "path": "docs/adr/ADR-011-mvp-core-scope-basic-ui.md",
+      "exists": true,
+      "sha256": "9502cf5c909dca80c8ed52c6baa05f4f6f6f3465f259c21faa51afd669d2913b"
+    },
+    {
+      "path": "docs/adr/ADR-012-reproducible-local-repair-demo.md",
+      "exists": true,
+      "sha256": "89bab2c0051d75bc8917152190e64f8efb38fdd364b804bc11fbb71c22bd0605"
+    },
+    {
+      "path": "docs/adr/ADR-013-standalone-repair-worker.md",
+      "exists": true,
+      "sha256": "294139fac47e8192c12439920e81c00764e7ce71117295c9cdf357b029af762d"
+    },
+    {
+      "path": "docs/adr/README.md",
+      "exists": true,
+      "sha256": "1ca6415122e6d9da508eef7e643d28f9f46f57841ec861a36e0050283754a883"
+    },
+    {
+      "path": "docs/architecture/MVP_ACCEPTANCE.md",
+      "exists": true,
+      "sha256": "6371e0808b31aaaea991cdf2e81c128cbe12b36d5ff29bf489ac5765d0249ef0"
+    },
+    {
+      "path": "docs/architecture/PHASE_1_PLAN.md",
+      "exists": true,
+      "sha256": "906d6ae014648ecd9cfef4c5624ec0c6873b474c98b03128551bee78fbd38274"
+    },
+    {
+      "path": "docs/architecture/REAL_MODEL_ACCEPTANCE.md",
+      "exists": true,
+      "sha256": "62e6d986ee11e6f9415ff96267377a354698394e55c91a6076de8fc38390b0f4"
+    },
+    {
+      "path": "docs/architecture/REPAIR_EXECUTION_CONTRACT.md",
+      "exists": true,
+      "sha256": "8640d62ae1d0ca60c434960ddee07caee8e98b5d16c6c95a9364a53d8448de15"
+    },
+    {
+      "path": "docs/upstream-analysis/OPEN_SWE_ARCHITECTURE.md",
+      "exists": true,
+      "sha256": "ae04d2fdaca8cdd00dbe7ab3d1e03788809d50720709a22f4380df35ab155012"
+    },
+    {
+      "path": "docs/upstream-analysis/UPSTREAM_README.md",
+      "exists": true,
+      "sha256": "cab8d1bedb1c68673b5acc46bd5d3493c065c2f3b61d288a41929e35f65a742a"
+    },
+    {
+      "path": "docs/upstream-analysis/VALIDATION.md",
+      "exists": true,
+      "sha256": "097c8ef6c315108c33cc83b85811d618f0d7dc6e59511b7f7a58129e8a0a77a8"
+    },
+    {
+      "path": "docs/upstream-analysis/baseline.json",
+      "exists": true,
+      "sha256": "d642429048b71233f23a0b8f3ee3335751a08dae5dfc605ad276dbaf5e54d07b"
+    },
+    {
+      "path": "scripts/repair_acceptance_fixtures.py",
+      "exists": true,
+      "sha256": "bc541538e30e96df195f6d2839612d6890ed5074788f58d3db3508d0e5708b3e"
+    },
+    {
+      "path": "scripts/repair_demo.py",
+      "exists": true,
+      "sha256": "8427198a33becfe4a72e0cdfc6eb70aabe3f3220ddf3b186e104a5c4fdc7e0d6"
+    },
+    {
+      "path": "scripts/repair_init.py",
+      "exists": true,
+      "sha256": "deab94e7a0abcb4e5fcb7d9f3244963ecc59f4a56e3b2baea177c3107a3fbbb9"
+    },
+    {
+      "path": "tests/e2e/fake_llm.py",
+      "exists": true,
+      "sha256": "1416bf47105ff6efc9d9bcdd0fcca81614ab2462dee55d6248a857d5341bf04e"
+    },
+    {
+      "path": "tests/e2e/playwright.repair.config.ts",
+      "exists": true,
+      "sha256": "9fc3206356bcb8faf95761d3a7e752020b29a173ac5f5658f6b44b7d70602fd8"
+    },
+    {
+      "path": "tests/e2e/repair-tests/open-demo.mts",
+      "exists": true,
+      "sha256": "0d462f6fb9bb7bf5d9f6f2248c8e90269ed12eda6c23f692f4142429bdb25e81"
+    },
+    {
+      "path": "tests/e2e/repair-tests/repair.spec.ts",
+      "exists": true,
+      "sha256": "b4e480e1346e5b17ab433ce5a50daba31033f617e1c91e675653d21fe0574c7c"
+    },
+    {
+      "path": "tests/repair/README.md",
+      "exists": true,
+      "sha256": "75e2e34d08c57dd06b5da2a59ff012bae70fa9b9ec1273702da02ca0faf163d4"
+    },
+    {
+      "path": "tests/repair/agent_entrypoint.py",
+      "exists": true,
+      "sha256": "6e522cbcacf88afc87e8e162b82be07b72103f2cc48e57ea46264487985c395c"
+    },
+    {
+      "path": "tests/repair/langgraph.json",
+      "exists": true,
+      "sha256": "a2f97fd50c787a4017149c1057f498790adc9216726ef9e8d477121cb7cb18f6"
+    },
+    {
+      "path": "tests/repair/test_acceptance_fixtures.py",
+      "exists": true,
+      "sha256": "0993b8ee3477852eb83888bb5347fc515994605653e35582215c7f235cff460c"
+    },
+    {
+      "path": "tests/repair/test_adapter_integration.py",
+      "exists": true,
+      "sha256": "ccd15ff51dac42d06550db7f3f5e09cd26988928d8a02be33d0380b60a7fba9c"
+    },
+    {
+      "path": "tests/repair/test_api.py",
+      "exists": true,
+      "sha256": "c75294755a8e97972a0a5be6f3ca3f407844f907a4039c977163b2bf532deb53"
+    },
+    {
+      "path": "tests/repair/test_candidate_patch.py",
+      "exists": true,
+      "sha256": "0cb5416c2c4754276bb408a82b10476767670410748e7da1c23a5339d906e1db"
+    },
+    {
+      "path": "tests/repair/test_dispatch.py",
+      "exists": true,
+      "sha256": "12027821893272535388055351134c8cad6e95914263caa60d21499cc698d0e6"
+    },
+    {
+      "path": "tests/repair/test_process.py",
+      "exists": true,
+      "sha256": "4fe48d4c58ab8c2727f5a326ebdb5a58487eee98ac1a415a78eaf3b390a85d17"
+    },
+    {
+      "path": "tests/repair/test_recovery.py",
+      "exists": true,
+      "sha256": "8b6097b1800160319d99df229578cb381c4c966586de8013ec0f92c37adf5a4a"
+    },
+    {
+      "path": "tests/repair/test_runtime_integration.py",
+      "exists": true,
+      "sha256": "651043fcc98f4bf4a3add0337413addebbecf0e297580e8b8cfa594f0dc8ec98"
+    },
+    {
+      "path": "tests/repair/test_state.py",
+      "exists": true,
+      "sha256": "8a740f4dc772f6e00a4ed7462635cafa713d28fe91f0245b186cdd1ec3fa051a"
+    },
+    {
+      "path": "tests/repair/test_validation.py",
+      "exists": true,
+      "sha256": "f882e3b40fbe9b1b2c279281a40a0d39007def9172e08e012d3e5bfdcf735111"
+    },
+    {
+      "path": "tests/repair/test_validation_store.py",
+      "exists": true,
+      "sha256": "d712fa4e0a233b41dc8b036e8f7a75906a2ee7f737b091d1251b1ca26127a3a0"
+    },
+    {
+      "path": "tests/repair/test_worker_crash.py",
+      "exists": true,
+      "sha256": "174bfa28d25d633716c7d75313e19b42148723cedba16767d6ff1edc0b65a2d2"
+    },
+    {
+      "path": "tests/repair/worker_process.py",
+      "exists": true,
+      "sha256": "0dffc159eca2ee883ec3f2136c00f571bf9fee6dcccbc0cd0f85f6f1ed90cc2b"
+    },
+    {
+      "path": "ui/server/backend-proxy.test.ts",
+      "exists": true,
+      "sha256": "5efce9856221fe51c0ce809348d2be919b4cf206d7801677aaa64d567b5f7125"
+    },
+    {
+      "path": "ui/src/features/agents/components/AgentsSidebar.tsx",
+      "exists": true,
+      "sha256": "49a20e66b4e437f4d9685f1cead6415be7308ff0cd3af3f39cea1e350102f83a"
+    },
+    {
+      "path": "ui/src/features/agents/lib/apiWarmup.ts",
+      "exists": true,
+      "sha256": "1d34d6e14b52d9a54db7f167a64be4c2ec971099655f5b0b4309d34fc31bf981"
+    },
+    {
+      "path": "ui/src/features/agents/terminal/ghostty/surface.test.ts",
+      "exists": true,
+      "sha256": "18393b5299dde590b0cf44c944a2e876e8eaf1985e8e728846e93e05f7f105c1"
+    },
+    {
+      "path": "ui/src/features/repair/RepairTaskDetail.tsx",
+      "exists": true,
+      "sha256": "afe133fef7aa40c6b920009292ab2fd9e88ffa4d6a1ff94e2d0e1a5d3ef50458"
+    },
+    {
+      "path": "ui/src/features/repair/RepairTaskList.tsx",
+      "exists": true,
+      "sha256": "ccb5e362cc2fe0f5bbd4268afdbf29a18f33de62f76eb6603399ffd8d2b5b44c"
+    },
+    {
+      "path": "ui/src/features/repair/RepairTasks.test.tsx",
+      "exists": true,
+      "sha256": "2245256b48b228e102d0b345ab510e7986f720a7f5e3eb6d70d36e1c195b4bf1"
+    },
+    {
+      "path": "ui/src/features/repair/api.ts",
+      "exists": true,
+      "sha256": "2f4bb4352b56b56072b04174eb750d791e1b78612a504790c25a529d1277aa57"
+    },
+    {
+      "path": "ui/src/lib/appLocation.ts",
+      "exists": true,
+      "sha256": "b5331075562cb6a228504821ddaf604fc7e77d0a52301b4b459b6757a74a2eef"
+    },
+    {
+      "path": "ui/src/lib/perf/fetchTiming.test.ts",
+      "exists": true,
+      "sha256": "bf6d2448afae323f15480fe7b9b9701a1e26b43882f1e040ea1846c2c36a20e9"
+    },
+    {
+      "path": "ui/src/lib/perf/fetchTiming.ts",
+      "exists": true,
+      "sha256": "aa73f6f5a1ef8ed49bcae51c5bb97b7352458b70e2588a691d19d5624e260b63"
+    },
+    {
+      "path": "ui/src/routeTree.gen.ts",
+      "exists": true,
+      "sha256": "0d9f056f5ede207e9f6b10a7a40d607105447161dd9a2e32629b7897dab8ac98"
+    },
+    {
+      "path": "ui/src/routes/repair.tsx",
+      "exists": true,
+      "sha256": "5275f179d0ce390dcd2bdf6e18a7a5e25fde490ca92e0a067c9ed545b8fa74dc"
+    },
+    {
+      "path": "ui/src/routes/repair/$taskId.tsx",
+      "exists": true,
+      "sha256": "0f0e22d5c9ef19504cff781cfa34be6339edaa636c1b010a5cecc45a7065f3ed"
+    },
+    {
+      "path": "ui/src/routes/repair/index.tsx",
+      "exists": true,
+      "sha256": "66a4e1eb405da252f98ca631c220ff182c91e6b7410adb5bacdb1e84cdcd175a"
+    },
+    {
+      "path": "ui/vite.config.ts",
+      "exists": true,
+      "sha256": "22373ac0d8188d7b57e5fdfbfde70ca86fad62128c4dd464a0945e43daa8abb1"
+    }
+  ]
+}

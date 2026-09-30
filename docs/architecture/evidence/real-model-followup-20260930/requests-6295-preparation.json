@@ -1,0 +1,26 @@
+{
+  "kind": "real-upstream-issue-preparation-not-model-acceptance",
+  "sample_count": 1,
+  "model_calls": 0,
+  "fixtures_sha256": "9cb90f5ad4f0e5dfa5d965aa4a93fa65a95f940687b48783a28c113bba0447b0",
+  "samples": [
+    {
+      "sample_id": "acceptance-real-requests-6295",
+      "target_commit": "b007a8489cfa5268876ddc308a849058f004adee",
+      "failing_command": "/app/.venv/bin/python -m unittest test_target.py",
+      "constraints": "# Requests redirect history self-reference\n\nUpstream issue: https://github.com/psf/requests/issues/6295\nUpstream bugfix: https://github.com/psf/requests/pull/7328\nUpstream failing release tag: v2.33.1, commit 111d2b77790bf49943c0dfa09b365371c24aec7e.\n\nThe package source under src/requests is an exact copy of the upstream release-package entries fetched by blob from this tag. This is an extracted package snapshot with an added offline reproducer, not a full upstream checkout. Preserve the Apache-2.0 LICENSE.\n\nThe issue: after redirects, a Response in the final response's history may contain itself in its own history list, creating a cycle. Make redirect histories acyclic while preserving the final response's ordered redirect history. The fixed test uses an in-memory adapter, with no external requests.\n",
+      "upstream_issue": "https://github.com/psf/requests/issues/6295",
+      "upstream_tag": "v2.33.1",
+      "upstream_tag_commit": "111d2b77790bf49943c0dfa09b365371c24aec7e",
+      "source_file_count": 19,
+      "source_kind": "verified upstream package extraction with local reproducer; not full checkout",
+      "baseline_exit_code": 1,
+      "oracle_version": "v2.34.0 history-order correction",
+      "oracle_file_sha256": "61c1d8efbae283fb34f6c05584249606b115d894c8a2c00e5865cafc881b0bc3",
+      "oracle_check_exit_codes": [
+        0,
+        0
+      ]
+    }
+  ]
+}

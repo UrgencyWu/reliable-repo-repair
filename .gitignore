@@ -83,3 +83,6 @@ logs/
 test-results/
 playwright-report/
 blob-report/
+
+# Downstream local bootstrap tools
+.tools/

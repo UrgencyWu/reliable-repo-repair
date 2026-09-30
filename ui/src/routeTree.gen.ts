@@ -19,6 +19,7 @@ import { Route as IncidentsRouteImport } from './routes/incidents'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as MySettingsRouteImport } from './routes/my-settings'
+import { Route as RepairRouteImport } from './routes/repair'
 import { Route as ReviewRouteImport } from './routes/review'
 import { Route as UsageRouteImport } from './routes/usage'
 import { Route as WorkspacesRouteImport } from './routes/workspaces'
@@ -32,6 +33,8 @@ import { Route as AssistantIndexRouteImport } from './routes/assistant/index'
 import { Route as AssistantThreadIdRouteImport } from './routes/assistant/$threadId'
 import { Route as IncidentsIndexRouteImport } from './routes/incidents/index'
 import { Route as IncidentsIncidentIdRouteImport } from './routes/incidents/$incidentId'
+import { Route as RepairIndexRouteImport } from './routes/repair/index'
+import { Route as RepairTaskIdRouteImport } from './routes/repair/$taskId'
 import { Route as ReviewStylesRouteImport } from './routes/review_.styles'
 import { Route as WorkspacesSlugRouteImport } from './routes/workspaces_.$slug'
 import { Route as AgentsThreadIdPlanRouteImport } from './routes/agents/$threadId_.plan'
@@ -92,6 +95,11 @@ const LoginRoute = LoginRouteImport.update({
 const MySettingsRoute = MySettingsRouteImport.update({
   id: '/my-settings',
   path: '/my-settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RepairRoute = RepairRouteImport.update({
+  id: '/repair',
+  path: '/repair',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReviewRoute = ReviewRouteImport.update({
@@ -158,6 +166,16 @@ const IncidentsIncidentIdRoute = IncidentsIncidentIdRouteImport.update({
   id: '/$incidentId',
   path: '/$incidentId',
   getParentRoute: () => IncidentsRoute,
+} as any)
+const RepairIndexRoute = RepairIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RepairRoute,
+} as any)
+const RepairTaskIdRoute = RepairTaskIdRouteImport.update({
+  id: '/$taskId',
+  path: '/$taskId',
+  getParentRoute: () => RepairRoute,
 } as any)
 const ReviewStylesRoute = ReviewStylesRouteImport.update({
   id: '/review_/styles',
@@ -228,6 +246,7 @@ export interface FileRoutesByFullPath {
   '/integrations': typeof IntegrationsRoute
   '/login': typeof LoginRoute
   '/my-settings': typeof MySettingsRoute
+  '/repair': typeof RepairRouteWithChildren
   '/review': typeof ReviewRoute
   '/usage': typeof UsageRoute
   '/workspaces': typeof WorkspacesRoute
@@ -238,11 +257,13 @@ export interface FileRoutesByFullPath {
   '/agents/workspaces': typeof AgentsWorkspacesRoute
   '/assistant/$threadId': typeof AssistantThreadIdRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
+  '/repair/$taskId': typeof RepairTaskIdRoute
   '/review/styles': typeof ReviewStylesRoute
   '/workspaces/$slug': typeof WorkspacesSlugRoute
   '/agents/': typeof AgentsIndexRoute
   '/assistant/': typeof AssistantIndexRoute
   '/incidents/': typeof IncidentsIndexRoute
+  '/repair/': typeof RepairIndexRoute
   '/agents/$threadId/plan': typeof AgentsThreadIdPlanRoute
   '/agents/automations/$scheduleId': typeof AgentsAutomationsScheduleIdRoute
   '/agents/automations/new': typeof AgentsAutomationsNewRoute
@@ -271,11 +292,13 @@ export interface FileRoutesByTo {
   '/agents/workspaces': typeof AgentsWorkspacesRoute
   '/assistant/$threadId': typeof AssistantThreadIdRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
+  '/repair/$taskId': typeof RepairTaskIdRoute
   '/review/styles': typeof ReviewStylesRoute
   '/workspaces/$slug': typeof WorkspacesSlugRoute
   '/agents': typeof AgentsIndexRoute
   '/assistant': typeof AssistantIndexRoute
   '/incidents': typeof IncidentsIndexRoute
+  '/repair': typeof RepairIndexRoute
   '/agents/$threadId/plan': typeof AgentsThreadIdPlanRoute
   '/agents/automations/$scheduleId': typeof AgentsAutomationsScheduleIdRoute
   '/agents/automations/new': typeof AgentsAutomationsNewRoute
@@ -298,6 +321,7 @@ export interface FileRoutesById {
   '/integrations': typeof IntegrationsRoute
   '/login': typeof LoginRoute
   '/my-settings': typeof MySettingsRoute
+  '/repair': typeof RepairRouteWithChildren
   '/review': typeof ReviewRoute
   '/usage': typeof UsageRoute
   '/workspaces': typeof WorkspacesRoute
@@ -308,11 +332,13 @@ export interface FileRoutesById {
   '/agents_/workspaces': typeof AgentsWorkspacesRoute
   '/assistant/$threadId': typeof AssistantThreadIdRoute
   '/incidents/$incidentId': typeof IncidentsIncidentIdRoute
+  '/repair/$taskId': typeof RepairTaskIdRoute
   '/review_/styles': typeof ReviewStylesRoute
   '/workspaces_/$slug': typeof WorkspacesSlugRoute
   '/agents/': typeof AgentsIndexRoute
   '/assistant/': typeof AssistantIndexRoute
   '/incidents/': typeof IncidentsIndexRoute
+  '/repair/': typeof RepairIndexRoute
   '/agents/$threadId_/plan': typeof AgentsThreadIdPlanRoute
   '/agents/automations/$scheduleId': typeof AgentsAutomationsScheduleIdRoute
   '/agents/automations/new': typeof AgentsAutomationsNewRoute
@@ -336,6 +362,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/login'
     | '/my-settings'
+    | '/repair'
     | '/review'
     | '/usage'
     | '/workspaces'
@@ -346,11 +373,13 @@ export interface FileRouteTypes {
     | '/agents/workspaces'
     | '/assistant/$threadId'
     | '/incidents/$incidentId'
+    | '/repair/$taskId'
     | '/review/styles'
     | '/workspaces/$slug'
     | '/agents/'
     | '/assistant/'
     | '/incidents/'
+    | '/repair/'
     | '/agents/$threadId/plan'
     | '/agents/automations/$scheduleId'
     | '/agents/automations/new'
@@ -379,11 +408,13 @@ export interface FileRouteTypes {
     | '/agents/workspaces'
     | '/assistant/$threadId'
     | '/incidents/$incidentId'
+    | '/repair/$taskId'
     | '/review/styles'
     | '/workspaces/$slug'
     | '/agents'
     | '/assistant'
     | '/incidents'
+    | '/repair'
     | '/agents/$threadId/plan'
     | '/agents/automations/$scheduleId'
     | '/agents/automations/new'
@@ -405,6 +436,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/login'
     | '/my-settings'
+    | '/repair'
     | '/review'
     | '/usage'
     | '/workspaces'
@@ -415,11 +447,13 @@ export interface FileRouteTypes {
     | '/agents_/workspaces'
     | '/assistant/$threadId'
     | '/incidents/$incidentId'
+    | '/repair/$taskId'
     | '/review_/styles'
     | '/workspaces_/$slug'
     | '/agents/'
     | '/assistant/'
     | '/incidents/'
+    | '/repair/'
     | '/agents/$threadId_/plan'
     | '/agents/automations/$scheduleId'
     | '/agents/automations/new'
@@ -442,6 +476,7 @@ export interface RootRouteChildren {
   IntegrationsRoute: typeof IntegrationsRoute
   LoginRoute: typeof LoginRoute
   MySettingsRoute: typeof MySettingsRoute
+  RepairRoute: typeof RepairRouteWithChildren
   ReviewRoute: typeof ReviewRoute
   UsageRoute: typeof UsageRoute
   WorkspacesRoute: typeof WorkspacesRoute
@@ -524,6 +559,13 @@ declare module '@tanstack/react-router' {
       path: '/my-settings'
       fullPath: '/my-settings'
       preLoaderRoute: typeof MySettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/repair': {
+      id: '/repair'
+      path: '/repair'
+      fullPath: '/repair'
+      preLoaderRoute: typeof RepairRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/review': {
@@ -616,6 +658,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/incidents/$incidentId'
       preLoaderRoute: typeof IncidentsIncidentIdRouteImport
       parentRoute: typeof IncidentsRoute
+    }
+    '/repair/': {
+      id: '/repair/'
+      path: '/'
+      fullPath: '/repair/'
+      preLoaderRoute: typeof RepairIndexRouteImport
+      parentRoute: typeof RepairRoute
+    }
+    '/repair/$taskId': {
+      id: '/repair/$taskId'
+      path: '/$taskId'
+      fullPath: '/repair/$taskId'
+      preLoaderRoute: typeof RepairTaskIdRouteImport
+      parentRoute: typeof RepairRoute
     }
     '/review_/styles': {
       id: '/review_/styles'
@@ -754,6 +810,19 @@ const IncidentsRouteWithChildren = IncidentsRoute._addFileChildren(
   IncidentsRouteChildren,
 )
 
+interface RepairRouteChildren {
+  RepairTaskIdRoute: typeof RepairTaskIdRoute
+  RepairIndexRoute: typeof RepairIndexRoute
+}
+
+const RepairRouteChildren: RepairRouteChildren = {
+  RepairTaskIdRoute: RepairTaskIdRoute,
+  RepairIndexRoute: RepairIndexRoute,
+}
+
+const RepairRouteWithChildren =
+  RepairRoute._addFileChildren(RepairRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -765,6 +834,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntegrationsRoute: IntegrationsRoute,
   LoginRoute: LoginRoute,
   MySettingsRoute: MySettingsRoute,
+  RepairRoute: RepairRouteWithChildren,
   ReviewRoute: ReviewRoute,
   UsageRoute: UsageRoute,
   WorkspacesRoute: WorkspacesRoute,

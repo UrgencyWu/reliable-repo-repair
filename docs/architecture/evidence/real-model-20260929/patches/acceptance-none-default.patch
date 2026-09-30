@@ -1,0 +1,8 @@
+diff --git a/subject.py b/subject.py
+index cb21f52b16bd48d2a5d68fa4f6970a30464cf96f..8dd792dabcfbcbf9372bc722383956248baf4722 100644
+--- a/subject.py
++++ b/subject.py
+@@ -1,2 +1,2 @@
+ def solve(value, default):
+-    return value or default
++    return default if value is None else value

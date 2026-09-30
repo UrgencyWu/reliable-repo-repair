@@ -51,12 +51,15 @@ describe("backendProxy", () => {
         controller = value
       },
     })
-    globalThis.fetch = vi.fn(
-      async () =>
-        new Response(body, {
-          headers: { "content-type": "text/event-stream" },
-        })
-    ) as typeof fetch
+    globalThis.fetch = Object.assign(
+      vi.fn(
+        async () =>
+          new Response(body, {
+            headers: { "content-type": "text/event-stream" },
+          })
+      ),
+      originalFetch
+    )
     const response = await backendProxy({
       req: new Request(
         "https://dashboard.example.com/dashboard/api/threads/thread-a/stream/events",

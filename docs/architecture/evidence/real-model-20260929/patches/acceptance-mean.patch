@@ -1,0 +1,8 @@
+diff --git a/subject.py b/subject.py
+index a476d3551374763bb91a450784312570bca6316c..af80dd174dd336a0eb318ed9db8330740aee4304 100644
+--- a/subject.py
++++ b/subject.py
+@@ -1,2 +1,2 @@
+ def solve(values):
+-    return sum(values) // len(values)
++    return sum(values) / len(values)

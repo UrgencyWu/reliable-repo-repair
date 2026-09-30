@@ -1,0 +1,106 @@
+name: open-swe-repair-demo
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - repair_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+  postgres:
+    image: postgres:16.15-bookworm
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run python3 scripts/repair_init.py first}
+    volumes:
+      - repair_database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  backend:
+    image: open-swe-repair-backend:local
+    build:
+      context: .
+      dockerfile: deploy/repair/Dockerfile.backend
+    init: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment: &repair_environment
+      POSTGRES_URI: postgresql://postgres:${POSTGRES_PASSWORD:?Missing database password}@postgres:5432/postgres
+      DASHBOARD_JWT_SECRET: ${DASHBOARD_JWT_SECRET:?Missing session signing key}
+      ALLOWED_GITHUB_USERS: repair-demo
+      LANGGRAPH_URL: http://127.0.0.1:2024
+      E2E_TMP: /data/runtime
+      E2E_PORT: "2024"
+      E2E_BASE: http://127.0.0.1:2024
+      E2E_UI_SERVER: http://127.0.0.1:${REPAIR_UI_PORT:-3012}
+      DASHBOARD_API_BASE_URL: http://127.0.0.1:${REPAIR_UI_PORT:-3012}
+      DASHBOARD_ALLOWED_ORIGINS: http://127.0.0.1:${REPAIR_UI_PORT:-3012},http://127.0.0.1:${REPAIR_API_PORT:-2032}
+      SANDBOX_TYPE: local
+      REPAIR_ENABLED: "false"
+      REPAIR_FIXTURES_FILE: /data/demo/fixtures.json
+      REPAIR_DEMO_DIR: /data/demo
+      REPAIR_POLL_SECONDS: "0.2"
+      REPAIR_REDIS_URL: redis://redis:6379/0
+      REPAIR_EXECUTION_PATH: /usr/local/bin:/usr/bin:/bin
+      OPEN_SWE_LOCAL_WORKTREES_DIR: /data/worktrees
+      OPEN_SWE_LOCAL_ARTIFACTS_DIR: /data/artifacts
+    ports:
+      - "127.0.0.1:${REPAIR_API_PORT:-2032}:2024"
+    volumes:
+      - repair_workspace:/data
+      - repair_runtime:/app/.langgraph_api
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:2024/ok', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      start_period: 60s
+      retries: 30
+
+  repair-worker:
+    image: open-swe-repair-backend:local
+    build:
+      context: .
+      dockerfile: deploy/repair/Dockerfile.backend
+    init: true
+    entrypoint: ["python", "-m", "agent.repair.worker"]
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      <<: *repair_environment
+      LANGGRAPH_URL: http://backend:2024
+      REPAIR_ENABLED: "true"
+    volumes:
+      - repair_workspace:/data
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: deploy/repair/Dockerfile.ui
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      DASHBOARD_API_URL: http://backend:2024
+    ports:
+      - "127.0.0.1:${REPAIR_UI_PORT:-3012}:8080"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  repair_database:
+  repair_redis:
+  repair_workspace:
+  repair_runtime:

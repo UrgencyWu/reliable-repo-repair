@@ -1,0 +1,13 @@
+diff --git a/src/requests/models.py b/src/requests/models.py
+index 4142f2a4bbf39820b46b414a15af805a34b1a013..0aa2ce17cd8918949be3a13889e7596b8fd71c9c 100644
+--- a/src/requests/models.py
++++ b/src/requests/models.py
+@@ -596,7 +596,7 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
+             if not isinstance(body, bytes):
+                 body = body.encode("utf-8")
+ 
+-        if isinstance(data, Iterable) and not isinstance(
++        if hasattr(data, "__iter__") and not isinstance(
+             data, (str, bytes, list, tuple, Mapping)
+         ):
+             try:

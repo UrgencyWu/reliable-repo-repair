@@ -1,0 +1,8 @@
+diff --git a/subject.py b/subject.py
+index 8c604b41664d3e17c89161ef4bed641e7bcef977..9a1d4088721e7685234e3db09dce9e5e039853ac 100644
+--- a/subject.py
++++ b/subject.py
+@@ -1,2 +1,2 @@
+ def solve(base, attempt, cap):
+-    return min(base * attempt, cap)
++    return min(base ** (attempt + 1), cap)

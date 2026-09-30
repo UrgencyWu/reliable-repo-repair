@@ -1,0 +1,22 @@
+diff --git a/policy.py b/policy.py
+index c072a618d7461dd62e08326efb4c8807ed412fbb..0814ca2c11cf52dce67b8b9dcddec069258f7b4c 100644
+--- a/policy.py
++++ b/policy.py
+@@ -1,2 +1,2 @@
+ def retryable(status):
+-    return status >= 400
++    return status == 429 or 500 <= status < 600
+diff --git a/scheduler.py b/scheduler.py
+index 477cc5e7bee5057839f0132c0f7dcad2f7fb5377..3afaf074a2865cf0d029a98fcf06e29b8f8b4516 100644
+--- a/scheduler.py
++++ b/scheduler.py
+@@ -1,5 +1,8 @@
+ from policy import retryable
++
+ def next_delay(status, attempt, base=2, cap=20):
+     if not retryable(status):
+         return None
+-    return min(base * attempt, cap)
++    if attempt < 0 or base <= 0 or cap <= 0:
++        return None
++    return min(base * 2 ** attempt, cap)

@@ -5,6 +5,7 @@ const SECTION_STORAGE_PREFIX = "open-swe:last-section-location:"
 const FALLBACK_LOCATION = "/agents"
 
 export const SECTION_ROOTS = [
+  "/repair",
   "/agents/skills",
   "/agents/automations",
   "/agents/reviews",
@@ -23,8 +24,8 @@ function pathnameOf(href: string): string | undefined {
 
 function isAppLocation(value: string): boolean {
   const pathname = pathnameOf(value)
-  return [FALLBACK_LOCATION, "/assistant", "/incidents"].some((root) =>
-    isUnder(root, pathname)
+  return [FALLBACK_LOCATION, "/assistant", "/incidents", "/repair"].some(
+    (root) => isUnder(root, pathname)
   )
 }
 

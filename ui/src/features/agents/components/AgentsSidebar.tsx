@@ -134,6 +134,7 @@ interface HydratedRepoGroup extends SidebarRepoGroup {
 }
 
 const NAV = [
+  { to: "/repair", label: "Repair Tasks", icon: GitPullRequestIcon },
   { to: "/agents/skills", label: "Skills", icon: SparkleIcon },
   { to: "/agents/automations", label: "Automations", icon: LightningIcon },
   { to: "/agents/reviews", label: "Pull Requests", icon: GitPullRequestIcon },

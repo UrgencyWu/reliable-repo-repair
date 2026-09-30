@@ -1,0 +1,1 @@
+Repair capped exponential backoff. For nonnegative attempt, positive base and cap, the result must equal min(base * 2 ** attempt, cap). The multiplier is always 2; base is not the exponent base. Preserve the function signature and other behavior.

@@ -1,0 +1,1 @@
+Retry only HTTP 429 and every 5xx status (500 through 599 inclusive). All other status codes, including 400, 404, and 600, are not retryable. For retryable responses and nonnegative attempt, positive base and cap, next_delay must equal min(base * 2 ** attempt, cap); otherwise it returns None. Preserve both signatures.

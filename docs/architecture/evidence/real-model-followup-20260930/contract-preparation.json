@@ -1,0 +1,34 @@
+{
+  "kind": "contract-followup-synthetic-preparation-not-model-acceptance",
+  "sample_count": 2,
+  "model_calls": 0,
+  "fixtures_sha256": "5a8bb625530a0b443707bbf9ace774288fff3f56781bdd29c0574b25aa78bd7b",
+  "samples": [
+    {
+      "sample_id": "acceptance-capped-backoff-v2",
+      "target_commit": "2e907a00bcf959144ada5ce2a577a26f4aef757f",
+      "failing_command": "python3 -m unittest test_target.py",
+      "constraints": "Repair capped exponential backoff. For nonnegative attempt, positive base and cap, the result must equal min(base * 2 ** attempt, cap). The multiplier is always 2; base is not the exponent base. Preserve the function signature and other behavior.",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "4f92b8f363869f14044c53bc27f216d333005aa8582071884b83c741c6bb0476",
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-retry-contract-v2",
+      "target_commit": "280de75cfbee1024459889996060b9706e3b6a71",
+      "failing_command": "python3 -m unittest test_target.py",
+      "constraints": "Retry only HTTP 429 and every 5xx status (500 through 599 inclusive). All other status codes, including 400, 404, and 600, are not retryable. For retryable responses and nonnegative attempt, positive base and cap, next_delay must equal min(base * 2 ** attempt, cap); otherwise it returns None. Preserve both signatures.",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "0ec538f5910041eb87495035084ad88c49583c0091d7ea4a025241b8bde4cd9f",
+      "source_file_count": 2
+    }
+  ]
+}

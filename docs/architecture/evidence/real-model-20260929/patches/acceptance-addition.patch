@@ -1,0 +1,8 @@
+diff --git a/subject.py b/subject.py
+index 782413ba39244aa9c0b470791838d57c2e1b0827..579d4e127f44c9fd8578f536dbfc04c6da1ef17c 100644
+--- a/subject.py
++++ b/subject.py
+@@ -1,2 +1,2 @@
+ def solve(a, b):
+-    return a - b
++    return a + b

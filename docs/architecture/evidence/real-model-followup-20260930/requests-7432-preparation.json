@@ -1,0 +1,26 @@
+{
+  "kind": "real-upstream-issue-preparation-not-model-acceptance",
+  "sample_count": 1,
+  "model_calls": 0,
+  "fixtures_sha256": "5bcb98b0150d625d07ec908464aa230875232da2af0cdec07bff122db92a26e5",
+  "samples": [
+    {
+      "sample_id": "acceptance-real-requests-7432",
+      "target_commit": "5ebebda5ebb6f7f7029fce12634e66c010405aaa",
+      "failing_command": "/app/.venv/bin/python -m unittest test_target.py",
+      "constraints": "# Requests 2.34.0 stream-wrapper regression\n\nUpstream issue: https://github.com/psf/requests/issues/7432\nUpstream release tag: v2.34.0, commit 0b401c76b6e80a4eecf3c690085b2553f6e261ca.\n\nThe package source under src/requests is an exact copy of the 20 release-package entries fetched by blob from the upstream tag. This is an extracted package snapshot with an added offline reproducer, not a full upstream checkout. Preserve the Apache-2.0 LICENSE.\n\nThe issue: file-like wrappers can delegate read, tell, seek and __iter__ through __getattr__. Their class is not an Iterable according to isinstance. Requests 2.34.0 treats them as form data instead of streams, which breaks upload and 307/308 redirect replay. Repair the upstream package behavior. The fixed test uses an in-memory redirect adapter; it makes no external request. Keep ordinary streams and form encoding working.\n",
+      "upstream_issue": "https://github.com/psf/requests/issues/7432",
+      "upstream_tag": "v2.34.0",
+      "upstream_tag_commit": "0b401c76b6e80a4eecf3c690085b2553f6e261ca",
+      "source_file_count": 21,
+      "source_kind": "verified upstream package extraction with local reproducer; not full checkout",
+      "baseline_exit_code": 1,
+      "oracle_version": "2.34.2",
+      "oracle_models_sha256": "d1bc0d990abf5d5ebee05f890911b4363fadf2d5264b686a963df47c529b6ace",
+      "oracle_check_exit_codes": [
+        0,
+        0
+      ]
+    }
+  ]
+}

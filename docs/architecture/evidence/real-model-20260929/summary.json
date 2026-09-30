@@ -1,0 +1,2355 @@
+{
+  "kind": "local-real-model-synthetic-acceptance-with-post-hoc-contract-audit",
+  "generated_at": "2026-09-29T16:14:20.315524+00:00",
+  "model_id": "openai:qwen3.8-27b",
+  "reported_model": "qwen3.8-27b",
+  "endpoint": "http://127.0.0.1:8100/v1",
+  "reasoning_effort": "none",
+  "graph": "agent.graphs.agent:traced_agent",
+  "sample_count": 13,
+  "single_file_count": 10,
+  "multi_file_count": 3,
+  "started_count": 13,
+  "completed_count": 13,
+  "independent_fixed_plan_pass_count": 13,
+  "supplementary_audit_pass_count": 11,
+  "supplementary_audit_is_post_hoc": true,
+  "business_elapsed_seconds": {
+    "minimum": 19.292092,
+    "median": 23.202493,
+    "maximum": 43.50292,
+    "mean": 26.839885153846154
+  },
+  "main_agent_usage": {
+    "input_tokens": 1099348,
+    "output_tokens": 11386,
+    "total_tokens": 1110734,
+    "ai_messages": 94,
+    "tool_calls": 112,
+    "cost": null,
+    "exclusions": [
+      "background title/branch calls",
+      "configuration and SDK smoke calls",
+      "GPU/resource cost"
+    ]
+  },
+  "samples": [
+    {
+      "sample_id": "acceptance-addition",
+      "task_id": "01a0ede4-95d9-737b-9d0f-90e11e980742",
+      "repair_run_id": "01a0ede4-95f0-74ee-8c20-78c53246378a",
+      "thread_id": "01a0ede4-95f0-74ee-8c20-78c6700144a9",
+      "runtime_run_id": "01a0ede4-9779-7202-89db-2719fe0bd89c",
+      "target_commit": "345314244bfd446e67d03c2154e3c2a34a780fc7",
+      "started_at": "2026-09-29T15:59:35.282867+00:00",
+      "finished_at": "2026-09-29T16:00:00.326067+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T15:59:35.913664Z",
+      "task_updated_at": "2026-09-29T15:59:59.684487Z",
+      "observer_elapsed_seconds": 25.043,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 6,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 67678,
+          "output_tokens": 537,
+          "total_tokens": 68215
+        },
+        "known_partial_tokens": {
+          "input_tokens": 67678,
+          "output_tokens": 537,
+          "total_tokens": 68215
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 23.770823,
+      "candidate": {
+        "id": "01a0ede4-f123-71ef-a9a1-89bd1e3e7754",
+        "repair_run_id": "01a0ede4-95f0-74ee-8c20-78c53246378a",
+        "base_commit": "345314244bfd446e67d03c2154e3c2a34a780fc7",
+        "sha256": "78b9fae987d726e5b361f26683126780abd345041bd752b21af72d862edce071",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T15:59:59.270109Z",
+        "size_bytes": 237
+      },
+      "validations": [
+        {
+          "id": "01a0ede4-f1fe-7283-a86c-b77f3b0f8845",
+          "repair_run_id": "01a0ede4-95f0-74ee-8c20-78c53246378a",
+          "candidate_id": "01a0ede4-f123-71ef-a9a1-89bd1e3e7754",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.19412300000840332,
+          "started_at": "2026-09-29T15:59:59.487192Z",
+          "ended_at": "2026-09-29T15:59:59.684487Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede4-f1fe-7283-a86c-b77f3b0f8845/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve(2, 3), 5)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^\nAssertionError: -1 != 5\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.06018408399540931,
+              "stored_output_bytes": 571
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.000757791000069119,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0005965839955024421,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05148925000685267,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05147354200016707,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "345314244bfd446e67d03c2154e3c2a34a780fc7",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "78b9fae987d726e5b361f26683126780abd345041bd752b21af72d862edce071"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-addition",
+        "target_commit": "345314244bfd446e67d03c2154e3c2a34a780fc7",
+        "task_id": "01a0ede4-95d9-737b-9d0f-90e11e980742",
+        "patch_sha256": "78b9fae987d726e5b361f26683126780abd345041bd752b21af72d862edce071",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-capped-backoff",
+      "task_id": "01a0ede8-f084-716d-9c11-439623f2e2e9",
+      "repair_run_id": "01a0ede8-f087-7776-bcaf-5680a01bea74",
+      "thread_id": "01a0ede8-f087-7776-bcaf-5681ea49aa3d",
+      "runtime_run_id": "01a0ede8-f15c-7560-9d97-31414d8a8209",
+      "target_commit": "7bc8631d623c49b51b694b0f4c3df613aa496d02",
+      "started_at": "2026-09-29T16:04:21.233472+00:00",
+      "finished_at": "2026-09-29T16:05:01.828450+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:04:21.254372Z",
+      "task_updated_at": "2026-09-29T16:05:00.996537Z",
+      "observer_elapsed_seconds": 40.595,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 13,
+        "messages_without_usage": 0,
+        "tool_calls": 13,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 156851,
+          "output_tokens": 1303,
+          "total_tokens": 158154
+        },
+        "known_partial_tokens": {
+          "input_tokens": 156851,
+          "output_tokens": 1303,
+          "total_tokens": 158154
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 39.742165,
+      "candidate": {
+        "id": "01a0ede9-89e8-74d9-aef6-3681886d5a2e",
+        "repair_run_id": "01a0ede8-f087-7776-bcaf-5680a01bea74",
+        "base_commit": "7bc8631d623c49b51b694b0f4c3df613aa496d02",
+        "sha256": "ca5c3723f18274809b5e933ea99e773aa0da89c7bbe86af83e3a039ce2283e24",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:05:00.530892Z",
+        "size_bytes": 296
+      },
+      "validations": [
+        {
+          "id": "01a0ede9-8ae7-7045-aa84-d2dd8edb4f31",
+          "repair_run_id": "01a0ede8-f087-7776-bcaf-5680a01bea74",
+          "candidate_id": "01a0ede9-89e8-74d9-aef6-3681886d5a2e",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.21715462498832494,
+          "started_at": "2026-09-29T16:05:00.775935Z",
+          "ended_at": "2026-09-29T16:05:00.996537Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede9-8ae7-7045-aa84-d2dd8edb4f31/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve(2, 3, 100), 16)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 6 != 16\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.06618500000331551,
+              "stored_output_bytes": 583
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0008674999990034848,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0006275409978115931,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.060164624999742955,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05589329199574422,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "7bc8631d623c49b51b694b0f4c3df613aa496d02",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "ca5c3723f18274809b5e933ea99e773aa0da89c7bbe86af83e3a039ce2283e24"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-capped-backoff",
+        "target_commit": "7bc8631d623c49b51b694b0f4c3df613aa496d02",
+        "task_id": "01a0ede8-f084-716d-9c11-439623f2e2e9",
+        "patch_sha256": "ca5c3723f18274809b5e933ea99e773aa0da89c7bbe86af83e3a039ce2283e24",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          1
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": false
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-chunks",
+      "task_id": "01a0ede7-ee4f-723c-80c5-f378717b6c5e",
+      "repair_run_id": "01a0ede7-ee53-75c4-b858-aa94bd9ca293",
+      "thread_id": "01a0ede7-ee53-75c4-b858-aa958557e93e",
+      "runtime_run_id": "01a0ede7-ef33-7d43-96be-c7211be2b5b0",
+      "target_commit": "a713e664f70750a9a81b212159f00276a83d94c3",
+      "started_at": "2026-09-29T16:03:15.134012+00:00",
+      "finished_at": "2026-09-29T16:03:38.528312+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:03:15.154476Z",
+      "task_updated_at": "2026-09-29T16:03:38.356969Z",
+      "observer_elapsed_seconds": 23.394,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 8,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 68776,
+          "output_tokens": 736,
+          "total_tokens": 69512
+        },
+        "known_partial_tokens": {
+          "input_tokens": 68776,
+          "output_tokens": 736,
+          "total_tokens": 69512
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 23.202493,
+      "candidate": {
+        "id": "01a0ede8-469c-7405-805f-52445e388715",
+        "repair_run_id": "01a0ede7-ee53-75c4-b858-aa94bd9ca293",
+        "base_commit": "a713e664f70750a9a81b212159f00276a83d94c3",
+        "sha256": "9236ce0e6243a099e141a93ffc5a866c3081ce12ad4bad0927bbf8d4716890e4",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:03:37.761959Z",
+        "size_bytes": 349
+      },
+      "validations": [
+        {
+          "id": "01a0ede8-4788-7698-9cab-865a0172ae6e",
+          "repair_run_id": "01a0ede7-ee53-75c4-b858-aa94bd9ca293",
+          "candidate_id": "01a0ede8-469c-7405-805f-52445e388715",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.3565768339904025,
+          "started_at": "2026-09-29T16:03:37.992877Z",
+          "ended_at": "2026-09-29T16:03:38.356969Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede8-4788-7698-9cab-865a0172ae6e/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve([1, 2, 3], 2), [[1, 2], [3]])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [[2, 3]] != [[1, 2], [3]]\n\nFirst differing element 0:\n[2, 3]\n[1, 2]\n\nSecond list contains 1 additional elements.\nFirst extra element 1:\n[3]\n\n- [[2, 3]]\n+ [[1, 2], [3]]\n?   +++ +  +\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.10595133301103488,
+              "stored_output_bytes": 799
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.001163499997346662,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0012700829975074157,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.10199266600830015,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.09311499999603257,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "a713e664f70750a9a81b212159f00276a83d94c3",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "9236ce0e6243a099e141a93ffc5a866c3081ce12ad4bad0927bbf8d4716890e4"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-chunks",
+        "target_commit": "a713e664f70750a9a81b212159f00276a83d94c3",
+        "task_id": "01a0ede7-ee4f-723c-80c5-f378717b6c5e",
+        "patch_sha256": "9236ce0e6243a099e141a93ffc5a866c3081ce12ad4bad0927bbf8d4716890e4",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-clamp",
+      "task_id": "01a0ede6-1a25-7510-accf-3a10c320fd17",
+      "repair_run_id": "01a0ede6-1a2d-73de-a4d0-faeacc74ea40",
+      "thread_id": "01a0ede6-1a2d-73de-a4d0-faebb809f8cd",
+      "runtime_run_id": "01a0ede6-1b3d-72e3-a044-6143382afebb",
+      "target_commit": "3c6bc154978236cf9c3dfb96ffce3fe450c3ea72",
+      "started_at": "2026-09-29T16:01:15.248203+00:00",
+      "finished_at": "2026-09-29T16:01:37.703918+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:01:15.307330Z",
+      "task_updated_at": "2026-09-29T16:01:36.028607Z",
+      "observer_elapsed_seconds": 22.456,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 7,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 68161,
+          "output_tokens": 614,
+          "total_tokens": 68775
+        },
+        "known_partial_tokens": {
+          "input_tokens": 68161,
+          "output_tokens": 614,
+          "total_tokens": 68775
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 20.721277,
+      "candidate": {
+        "id": "01a0ede6-6974-7613-9757-b2d43aa1cb11",
+        "repair_run_id": "01a0ede6-1a2d-73de-a4d0-faeacc74ea40",
+        "base_commit": "3c6bc154978236cf9c3dfb96ffce3fe450c3ea72",
+        "sha256": "87515232f5d1f846fed9f996b7588c86821f6ce325f87488d6d086a3c7aae899",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:01:35.605690Z",
+        "size_bytes": 280
+      },
+      "validations": [
+        {
+          "id": "01a0ede6-6a5a-7056-9033-aab08f42d5f4",
+          "repair_run_id": "01a0ede6-1a2d-73de-a4d0-faeacc74ea40",
+          "candidate_id": "01a0ede6-6974-7613-9757-b2d43aa1cb11",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.19024933299806435,
+          "started_at": "2026-09-29T16:01:35.835332Z",
+          "ended_at": "2026-09-29T16:01:36.028607Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede6-6a5a-7056-9033-aab08f42d5f4/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve(5, 0, 3), 3)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 != 3\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05794708299799822,
+              "stored_output_bytes": 576
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0008559999987483025,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.000797250002506189,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.055063416992197745,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.042231708008330315,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "3c6bc154978236cf9c3dfb96ffce3fe450c3ea72",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "87515232f5d1f846fed9f996b7588c86821f6ce325f87488d6d086a3c7aae899"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-clamp",
+        "target_commit": "3c6bc154978236cf9c3dfb96ffce3fe450c3ea72",
+        "task_id": "01a0ede6-1a25-7510-accf-3a10c320fd17",
+        "patch_sha256": "87515232f5d1f846fed9f996b7588c86821f6ce325f87488d6d086a3c7aae899",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-inclusive-range",
+      "task_id": "01a0ede8-49be-7463-83c6-c278fe8454c7",
+      "repair_run_id": "01a0ede8-49c3-71b5-acc4-db25b37707ee",
+      "thread_id": "01a0ede8-49c3-71b5-acc4-db26aff93301",
+      "runtime_run_id": "01a0ede8-49f8-7640-8983-8d3ec9c34392",
+      "target_commit": "eb3db7cc19012ebbb7d343c32801823e5966cbd4",
+      "started_at": "2026-09-29T16:03:38.530461+00:00",
+      "finished_at": "2026-09-29T16:03:58.870074+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:03:38.562365Z",
+      "task_updated_at": "2026-09-29T16:03:57.854457Z",
+      "observer_elapsed_seconds": 20.339,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 6,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 68051,
+          "output_tokens": 607,
+          "total_tokens": 68658
+        },
+        "known_partial_tokens": {
+          "input_tokens": 68051,
+          "output_tokens": 607,
+          "total_tokens": 68658
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 19.292092,
+      "candidate": {
+        "id": "01a0ede8-932a-7220-881c-52357b6d09b1",
+        "repair_run_id": "01a0ede8-49c3-71b5-acc4-db25b37707ee",
+        "base_commit": "eb3db7cc19012ebbb7d343c32801823e5966cbd4",
+        "sha256": "d5182117e9be0db0de577719d851eef65e9516b9f8a694e9b5899246cd13b652",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:03:57.355663Z",
+        "size_bytes": 286
+      },
+      "validations": [
+        {
+          "id": "01a0ede8-940b-71db-8b8b-ac490c3cbd6e",
+          "repair_run_id": "01a0ede8-49c3-71b5-acc4-db25b37707ee",
+          "candidate_id": "01a0ede8-932a-7220-881c-52357b6d09b1",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.26645325000572484,
+          "started_at": "2026-09-29T16:03:57.580462Z",
+          "ended_at": "2026-09-29T16:03:57.854457Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede8-940b-71db-8b8b-ac490c3cbd6e/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve(2, 4), [2, 3, 4])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [2, 3] != [2, 3, 4]\n\nSecond list contains 1 additional elements.\nFirst extra element 2:\n4\n\n- [2, 3]\n+ [2, 3, 4]\n?      +++\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.056178375001763925,
+              "stored_output_bytes": 717
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0010992090101353824,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0008388330024899915,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.06577570900844876,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.10493254099856131,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "eb3db7cc19012ebbb7d343c32801823e5966cbd4",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "d5182117e9be0db0de577719d851eef65e9516b9f8a694e9b5899246cd13b652"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-inclusive-range",
+        "target_commit": "eb3db7cc19012ebbb7d343c32801823e5966cbd4",
+        "task_id": "01a0ede8-49be-7463-83c6-c278fe8454c7",
+        "patch_sha256": "d5182117e9be0db0de577719d851eef65e9516b9f8a694e9b5899246cd13b652",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-mean",
+      "task_id": "01a0ede6-71be-741f-bbfa-0c0bdf05e7a9",
+      "repair_run_id": "01a0ede6-71c2-776a-a811-6e6be7ccb7b4",
+      "thread_id": "01a0ede6-71c2-776a-a811-6e6ccf02ed8e",
+      "runtime_run_id": "01a0ede6-71db-7083-828a-cace1eeb9aba",
+      "target_commit": "a0d8ef19109a36de03d655baaa9fae99081350fb",
+      "started_at": "2026-09-29T16:01:37.706268+00:00",
+      "finished_at": "2026-09-29T16:02:00.817237+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:01:37.729318Z",
+      "task_updated_at": "2026-09-29T16:01:59.112662Z",
+      "observer_elapsed_seconds": 23.11,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 7,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 68004,
+          "output_tokens": 666,
+          "total_tokens": 68670
+        },
+        "known_partial_tokens": {
+          "input_tokens": 68004,
+          "output_tokens": 666,
+          "total_tokens": 68670
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 21.383344,
+      "candidate": {
+        "id": "01a0ede6-c3c3-766e-815c-27cd7d57d17a",
+        "repair_run_id": "01a0ede6-71c2-776a-a811-6e6be7ccb7b4",
+        "base_commit": "a0d8ef19109a36de03d655baaa9fae99081350fb",
+        "sha256": "69cf5cb01f214eaad3f364757f5b7a3af8abbb72b381798b2ddb32da774440bd",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:01:58.725368Z",
+        "size_bytes": 280
+      },
+      "validations": [
+        {
+          "id": "01a0ede6-c4a1-72f1-b5ce-342568df2226",
+          "repair_run_id": "01a0ede6-71c2-776a-a811-6e6be7ccb7b4",
+          "candidate_id": "01a0ede6-c3c3-766e-815c-27cd7d57d17a",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.1635455829964485,
+          "started_at": "2026-09-29T16:01:58.946439Z",
+          "ended_at": "2026-09-29T16:01:59.112662Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede6-c4a1-72f1-b5ce-342568df2226/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve([1, 2]), 1.5)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1 != 1.5\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05177325000113342,
+              "stored_output_bytes": 580
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0005763749941252172,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0004619999963324517,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.041725208997377194,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0410565000056522,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "a0d8ef19109a36de03d655baaa9fae99081350fb",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "69cf5cb01f214eaad3f364757f5b7a3af8abbb72b381798b2ddb32da774440bd"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-mean",
+        "target_commit": "a0d8ef19109a36de03d655baaa9fae99081350fb",
+        "task_id": "01a0ede6-71be-741f-bbfa-0c0bdf05e7a9",
+        "patch_sha256": "69cf5cb01f214eaad3f364757f5b7a3af8abbb72b381798b2ddb32da774440bd",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-median",
+      "task_id": "01a0ede6-cc04-7058-8db5-abc22f8e8b10",
+      "repair_run_id": "01a0ede6-cc08-7105-b9c5-0a595ae9245c",
+      "thread_id": "01a0ede6-cc08-7105-b9c5-0a5a881ab6ec",
+      "runtime_run_id": "01a0ede6-ccfd-79c1-8652-edd20d9b80fd",
+      "target_commit": "4a2a6287b2c6e060230fafc8f81616a16d47e054",
+      "started_at": "2026-09-29T16:02:00.818681+00:00",
+      "finished_at": "2026-09-29T16:02:25.531286+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:02:00.839448Z",
+      "task_updated_at": "2026-09-29T16:02:23.800072Z",
+      "observer_elapsed_seconds": 24.712,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 8,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 68991,
+          "output_tokens": 764,
+          "total_tokens": 69755
+        },
+        "known_partial_tokens": {
+          "input_tokens": 68991,
+          "output_tokens": 764,
+          "total_tokens": 69755
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 22.960624,
+      "candidate": {
+        "id": "01a0ede7-23fe-7266-a637-bffdbed8d120",
+        "repair_run_id": "01a0ede6-cc08-7105-b9c5-0a595ae9245c",
+        "base_commit": "4a2a6287b2c6e060230fafc8f81616a16d47e054",
+        "sha256": "b5c19f8777e9c4d1707ff9d813041c276c1902bcd5c4aa83db282ebee6aa59c9",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:02:23.360461Z",
+        "size_bytes": 390
+      },
+      "validations": [
+        {
+          "id": "01a0ede7-24d8-71b6-b57d-e8cb7bcb6b9d",
+          "repair_run_id": "01a0ede6-cc08-7105-b9c5-0a595ae9245c",
+          "candidate_id": "01a0ede7-23fe-7266-a637-bffdbed8d120",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.22060608300671447,
+          "started_at": "2026-09-29T16:02:23.576428Z",
+          "ended_at": "2026-09-29T16:02:23.800072Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede7-24d8-71b6-b57d-e8cb7bcb6b9d/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve([1, 3]), 2)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^\nAssertionError: 3 != 2\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.07332337500702124,
+              "stored_output_bytes": 574
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0007185420108726248,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0006024999893270433,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.052882541000144556,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05124316699220799,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "4a2a6287b2c6e060230fafc8f81616a16d47e054",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "b5c19f8777e9c4d1707ff9d813041c276c1902bcd5c4aa83db282ebee6aa59c9"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-median",
+        "target_commit": "4a2a6287b2c6e060230fafc8f81616a16d47e054",
+        "task_id": "01a0ede6-cc04-7058-8db5-abc22f8e8b10",
+        "patch_sha256": "b5c19f8777e9c4d1707ff9d813041c276c1902bcd5c4aa83db282ebee6aa59c9",
+        "baseline_exit_codes": [
+          1,
+          0,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-none-default",
+      "task_id": "01a0ede8-9929-749a-a0b8-33a27e59d9f3",
+      "repair_run_id": "01a0ede8-992d-740a-aa24-211fb7f55fe0",
+      "thread_id": "01a0ede8-992d-740a-aa24-21201dce25be",
+      "runtime_run_id": "01a0ede8-9972-7371-95ec-2a9c794950dd",
+      "target_commit": "b9f97110f06923f53568b686002c28f1e343741a",
+      "started_at": "2026-09-29T16:03:58.870936+00:00",
+      "finished_at": "2026-09-29T16:04:21.232266+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:03:58.892217Z",
+      "task_updated_at": "2026-09-29T16:04:19.485306Z",
+      "observer_elapsed_seconds": 22.361,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 7,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 68526,
+          "output_tokens": 697,
+          "total_tokens": 69223
+        },
+        "known_partial_tokens": {
+          "input_tokens": 68526,
+          "output_tokens": 697,
+          "total_tokens": 69223
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 20.593089,
+      "candidate": {
+        "id": "01a0ede8-e809-7266-a326-a0a209ae9b4a",
+        "repair_run_id": "01a0ede8-992d-740a-aa24-211fb7f55fe0",
+        "base_commit": "b9f97110f06923f53568b686002c28f1e343741a",
+        "sha256": "adb3e26838330141881c184155125d0e84bd69e777300df220dfe37982fe1d2c",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:04:19.082322Z",
+        "size_bytes": 288
+      },
+      "validations": [
+        {
+          "id": "01a0ede8-e8e7-726e-b7d9-6fecb4156027",
+          "repair_run_id": "01a0ede8-992d-740a-aa24-211fb7f55fe0",
+          "candidate_id": "01a0ede8-e809-7266-a326-a0a209ae9b4a",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.1776032500056317,
+          "started_at": "2026-09-29T16:04:19.304424Z",
+          "ended_at": "2026-09-29T16:04:19.485306Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede8-e8e7-726e-b7d9-6fecb4156027/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve(0, 7), 0)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^\nAssertionError: 7 != 0\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05056337499991059,
+              "stored_output_bytes": 570
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0007325420010602102,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0004739580035675317,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.04604599998856429,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.04515058299875818,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "b9f97110f06923f53568b686002c28f1e343741a",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "adb3e26838330141881c184155125d0e84bd69e777300df220dfe37982fe1d2c"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-none-default",
+        "target_commit": "b9f97110f06923f53568b686002c28f1e343741a",
+        "task_id": "01a0ede8-9929-749a-a0b8-33a27e59d9f3",
+        "patch_sha256": "adb3e26838330141881c184155125d0e84bd69e777300df220dfe37982fe1d2c",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-slug",
+      "task_id": "01a0ede7-96a3-77ca-98e1-946db2ed6bb8",
+      "repair_run_id": "01a0ede7-96a6-77c3-a717-d502cac4e0c0",
+      "thread_id": "01a0ede7-96a6-77c3-a717-d503afe40f2d",
+      "runtime_run_id": "01a0ede7-9763-75b0-b807-86b82bd61566",
+      "target_commit": "c33c201bbe2b6838b73ea5c9f5993413a9f47509",
+      "started_at": "2026-09-29T16:02:52.689297+00:00",
+      "finished_at": "2026-09-29T16:03:15.132641+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:02:52.709547Z",
+      "task_updated_at": "2026-09-29T16:03:13.437147Z",
+      "observer_elapsed_seconds": 22.443,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 7,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 68486,
+          "output_tokens": 685,
+          "total_tokens": 69171
+        },
+        "known_partial_tokens": {
+          "input_tokens": 68486,
+          "output_tokens": 685,
+          "total_tokens": 69171
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 20.7276,
+      "candidate": {
+        "id": "01a0ede7-e5cb-71d4-8ed1-0d1d5a397b90",
+        "repair_run_id": "01a0ede7-96a6-77c3-a717-d502cac4e0c0",
+        "base_commit": "c33c201bbe2b6838b73ea5c9f5993413a9f47509",
+        "sha256": "d25dc86c676acb18205cc6a040c18ffd3fef7d0c7c2df86a937f8b67b6270326",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:03:12.973810Z",
+        "size_bytes": 317
+      },
+      "validations": [
+        {
+          "id": "01a0ede7-e6b0-7763-a608-f5f363228ab0",
+          "repair_run_id": "01a0ede7-96a6-77c3-a717-d502cac4e0c0",
+          "candidate_id": "01a0ede7-e5cb-71d4-8ed1-0d1d5a397b90",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.23235479100549128,
+          "started_at": "2026-09-29T16:03:13.200855Z",
+          "ended_at": "2026-09-29T16:03:13.437147Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede7-e6b0-7763-a608-f5f363228ab0/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve(' Hello  World '), 'hello-world')\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-hello--world-' != 'hello-world'\n- -hello--world-\n? -      -     -\n+ hello-world\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05805125000188127,
+              "stored_output_bytes": 694
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0007402500050375238,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0007116659980965778,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.06315762500162236,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.07047779099957552,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "c33c201bbe2b6838b73ea5c9f5993413a9f47509",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "d25dc86c676acb18205cc6a040c18ffd3fef7d0c7c2df86a937f8b67b6270326"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-slug",
+        "target_commit": "c33c201bbe2b6838b73ea5c9f5993413a9f47509",
+        "task_id": "01a0ede7-96a3-77ca-98e1-946db2ed6bb8",
+        "patch_sha256": "d25dc86c676acb18205cc6a040c18ffd3fef7d0c7c2df86a937f8b67b6270326",
+        "baseline_exit_codes": [
+          1,
+          0,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-stable-unique",
+      "task_id": "01a0ede7-2caa-7040-8f54-aa64e6532ce5",
+      "repair_run_id": "01a0ede7-2cae-70e8-903d-e7bc212ee962",
+      "thread_id": "01a0ede7-2cae-70e8-903d-e7bdac9dc0f0",
+      "runtime_run_id": "01a0ede7-2d7e-7f62-bd61-a7312171f43c",
+      "target_commit": "6ab0e064ee1ce660ca6a1fe96d53ed3efb13ef47",
+      "started_at": "2026-09-29T16:02:25.534033+00:00",
+      "finished_at": "2026-09-29T16:02:52.688549+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:02:25.581957Z",
+      "task_updated_at": "2026-09-29T16:02:50.731223Z",
+      "observer_elapsed_seconds": 27.154,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 8,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 69267,
+          "output_tokens": 835,
+          "total_tokens": 70102
+        },
+        "known_partial_tokens": {
+          "input_tokens": 69267,
+          "output_tokens": 835,
+          "total_tokens": 70102
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 25.149266,
+      "candidate": {
+        "id": "01a0ede7-8d37-76af-9d4f-f30f125e7dd7",
+        "repair_run_id": "01a0ede7-2cae-70e8-903d-e7bc212ee962",
+        "base_commit": "6ab0e064ee1ce660ca6a1fe96d53ed3efb13ef47",
+        "sha256": "216963317fffc57f48cb532628b75fa10d925f30e10c1f59a5f74d455eb40045",
+        "files_changed": [
+          "subject.py"
+        ],
+        "created_at": "2026-09-29T16:02:50.297180Z",
+        "size_bytes": 335
+      },
+      "validations": [
+        {
+          "id": "01a0ede7-8e19-739d-904c-d60caa1b0e8f",
+          "repair_run_id": "01a0ede7-2cae-70e8-903d-e7bc212ee962",
+          "candidate_id": "01a0ede7-8d37-76af-9d4f-f30f125e7dd7",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.20612266700481996,
+          "started_at": "2026-09-29T16:02:50.521639Z",
+          "ended_at": "2026-09-29T16:02:50.731223Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0ede7-8e19-739d-904c-d60caa1b0e8f/test_target.py\", line 5, in test_contract\n    self.assertEqual(solve(['b', 'a', 'b']), ['b', 'a'])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: ['a', 'b'] != ['b', 'a']\n\nFirst differing element 0:\n'a'\n'b'\n\n- ['a', 'b']\n+ ['b', 'a']\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.06618579200585373,
+              "stored_output_bytes": 705
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0007236249948618934,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0005770830030087382,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05651383299846202,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.048088458002894185,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "6ab0e064ee1ce660ca6a1fe96d53ed3efb13ef47",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "216963317fffc57f48cb532628b75fa10d925f30e10c1f59a5f74d455eb40045"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-stable-unique",
+        "target_commit": "6ab0e064ee1ce660ca6a1fe96d53ed3efb13ef47",
+        "task_id": "01a0ede7-2caa-7040-8f54-aa64e6532ce5",
+        "patch_sha256": "216963317fffc57f48cb532628b75fa10d925f30e10c1f59a5f74d455eb40045",
+        "baseline_exit_codes": [
+          1,
+          0,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 1
+    },
+    {
+      "sample_id": "acceptance-export-contract",
+      "task_id": "01a0edeb-7e92-721c-8a8e-2768994d1724",
+      "repair_run_id": "01a0edeb-7e95-71ac-81e7-459ad46d920f",
+      "thread_id": "01a0edeb-7e95-71ac-81e7-459b48f33cd4",
+      "runtime_run_id": "01a0edeb-7ef0-7ee0-b848-28b5efda3970",
+      "target_commit": "1b2aecf597aa399b860ec44b0a52f9ef70587af3",
+      "started_at": "2026-09-29T16:07:08.676880+00:00",
+      "finished_at": "2026-09-29T16:07:53.349000+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:07:08.692814Z",
+      "task_updated_at": "2026-09-29T16:07:52.195734Z",
+      "observer_elapsed_seconds": 44.672,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 10,
+        "messages_without_usage": 0,
+        "tool_calls": 12,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 122054,
+          "output_tokens": 1564,
+          "total_tokens": 123618
+        },
+        "known_partial_tokens": {
+          "input_tokens": 122054,
+          "output_tokens": 1564,
+          "total_tokens": 123618
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 43.50292,
+      "candidate": {
+        "id": "01a0edec-26f1-71a0-98ae-00ecfa9c29f2",
+        "repair_run_id": "01a0edeb-7e95-71ac-81e7-459ad46d920f",
+        "base_commit": "1b2aecf597aa399b860ec44b0a52f9ef70587af3",
+        "sha256": "452e633adbcb45815f1566f7a6fc90cf48a0837bf037f6a2132ec997f5476a17",
+        "files_changed": [
+          "exporter.py",
+          "normalization.py"
+        ],
+        "created_at": "2026-09-29T16:07:51.795404Z",
+        "size_bytes": 726
+      },
+      "validations": [
+        {
+          "id": "01a0edec-27cd-7582-9c4e-d49132c41b93",
+          "repair_run_id": "01a0edeb-7e95-71ac-81e7-459ad46d920f",
+          "candidate_id": "01a0edec-26f1-71a0-98ae-00ecfa9c29f2",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.17887608300952706,
+          "started_at": "2026-09-29T16:07:52.013609Z",
+          "ended_at": "2026-09-29T16:07:52.195734Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0edec-27cd-7582-9c4e-d49132c41b93/test_target.py\", line 6, in test_contract\n    self.assertEqual(export({'b': 0, 'a': None}), [('b', 0), ('a', 'N/A')])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [('a', 'N/A'), ('b', 'N/A')] != [('b', 0), ('a', 'N/A')]\n\nFirst differing element 0:\n('a', 'N/A')\n('b', 0)\n\n- [('a', 'N/A'), ('b', 'N/A')]\n+ [('b', 0), ('a', 'N/A')]\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.04958745799376629,
+              "stored_output_bytes": 821
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0006304580019786954,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0005579170101555064,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.04790195799432695,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.04948808300832752,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "1b2aecf597aa399b860ec44b0a52f9ef70587af3",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "452e633adbcb45815f1566f7a6fc90cf48a0837bf037f6a2132ec997f5476a17"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-export-contract",
+        "target_commit": "1b2aecf597aa399b860ec44b0a52f9ef70587af3",
+        "task_id": "01a0edeb-7e92-721c-8a8e-2768994d1724",
+        "patch_sha256": "452e633adbcb45815f1566f7a6fc90cf48a0837bf037f6a2132ec997f5476a17",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 2
+    },
+    {
+      "sample_id": "acceptance-pagination-contract",
+      "task_id": "01a0edea-68b1-7389-8f9f-aaa31d93f68a",
+      "repair_run_id": "01a0edea-68b6-74c3-b623-be13f39deb79",
+      "thread_id": "01a0edea-68b6-74c3-b623-be14a8cceadb",
+      "runtime_run_id": "01a0edea-698a-7371-961b-e8f05bdab50e",
+      "target_commit": "dabbcdfeba520d9a0a681b213e647f0fe3d3671d",
+      "started_at": "2026-09-29T16:05:57.507232+00:00",
+      "finished_at": "2026-09-29T16:06:34.968267+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:05:57.557330Z",
+      "task_updated_at": "2026-09-29T16:06:33.599718Z",
+      "observer_elapsed_seconds": 37.461,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 11,
+        "messages_without_usage": 0,
+        "tool_calls": 13,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 132868,
+          "output_tokens": 1246,
+          "total_tokens": 134114
+        },
+        "known_partial_tokens": {
+          "input_tokens": 132868,
+          "output_tokens": 1246,
+          "total_tokens": 134114
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 36.042388,
+      "candidate": {
+        "id": "01a0edea-f3e5-7436-9b0c-13e1528a4f6e",
+        "repair_run_id": "01a0edea-68b6-74c3-b623-be13f39deb79",
+        "base_commit": "dabbcdfeba520d9a0a681b213e647f0fe3d3671d",
+        "sha256": "3d1d73df37a68d6986fde86b8538ec9af70607a98d16f466a0c828ee533a167d",
+        "files_changed": [
+          "pagination.py",
+          "service.py"
+        ],
+        "created_at": "2026-09-29T16:06:33.190987Z",
+        "size_bytes": 848
+      },
+      "validations": [
+        {
+          "id": "01a0edea-f4c2-7306-bcd2-0961ef771728",
+          "repair_run_id": "01a0edea-68b6-74c3-b623-be13f39deb79",
+          "candidate_id": "01a0edea-f3e5-7436-9b0c-13e1528a4f6e",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.18605550000211224,
+          "started_at": "2026-09-29T16:06:33.411065Z",
+          "ended_at": "2026-09-29T16:06:33.599718Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0edea-f4c2-7306-bcd2-0961ef771728/test_target.py\", line 6, in test_contract\n    self.assertEqual(response([1, 2, 3, 4, 5], 2, 2), {'items': [3, 4], 'has_next': True})\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'items': [5], 'has_next': False} != {'items': [3, 4], 'has_next': True}\n- {'has_next': False, 'items': [5]}\n?              ^^^^             ^\n\n+ {'has_next': True, 'items': [3, 4]}\n?              ^^^             ^^^^\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05436295800609514,
+              "stored_output_bytes": 890
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0006948749942239374,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0008955420053098351,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.046657540995511226,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05293162500311155,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "dabbcdfeba520d9a0a681b213e647f0fe3d3671d",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "3d1d73df37a68d6986fde86b8538ec9af70607a98d16f466a0c828ee533a167d"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-pagination-contract",
+        "target_commit": "dabbcdfeba520d9a0a681b213e647f0fe3d3671d",
+        "task_id": "01a0edea-68b1-7389-8f9f-aaa31d93f68a",
+        "patch_sha256": "3d1d73df37a68d6986fde86b8538ec9af70607a98d16f466a0c828ee533a167d",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": true
+      },
+      "source_file_count": 2
+    },
+    {
+      "sample_id": "acceptance-retry-contract",
+      "task_id": "01a0edea-faf1-71b7-a5b6-89252b5a8f01",
+      "repair_run_id": "01a0edea-faf4-71d3-95ba-6b8b051f086d",
+      "thread_id": "01a0edea-faf4-71d3-95ba-6b8c6583a9b9",
+      "runtime_run_id": "01a0edea-fb7b-7c50-b83e-306aeab80ee3",
+      "target_commit": "329f6c7c85740ab5bd266208f91dd507bd569e69",
+      "started_at": "2026-09-29T16:06:34.969733+00:00",
+      "finished_at": "2026-09-29T16:07:08.675897+00:00",
+      "status": "COMPLETED",
+      "failure_reason": null,
+      "candidate_produced": true,
+      "baseline_reproduced": true,
+      "independent_pass": true,
+      "patch_hash_matches": true,
+      "runtime_history_count": 1,
+      "task_created_at": "2026-09-29T16:06:34.995996Z",
+      "task_updated_at": "2026-09-29T16:07:06.826422Z",
+      "observer_elapsed_seconds": 33.706,
+      "usage": {
+        "scope": "persisted main-agent AI messages; background title/branch calls excluded",
+        "source": "Runtime usage_metadata or serialized additional_kwargs.usage_metadata",
+        "ai_messages": 6,
+        "messages_without_usage": 0,
+        "tool_calls": 10,
+        "observed_models": [
+          "qwen3.8-27b"
+        ],
+        "tokens": {
+          "input_tokens": 71635,
+          "output_tokens": 1132,
+          "total_tokens": 72767
+        },
+        "known_partial_tokens": {
+          "input_tokens": 71635,
+          "output_tokens": 1132,
+          "total_tokens": 72767
+        },
+        "cost": null,
+        "cost_note": "Local endpoint provides token usage, not billing or GPU cost"
+      },
+      "business_elapsed_seconds": 31.830426,
+      "candidate": {
+        "id": "01a0edeb-75bb-74f9-95ba-48a9b06a347a",
+        "repair_run_id": "01a0edea-faf4-71d3-95ba-6b8b051f086d",
+        "base_commit": "329f6c7c85740ab5bd266208f91dd507bd569e69",
+        "sha256": "763b91e6eb10723652b2514bac5d0ad4287833f41bd441554a777d1e2168a48d",
+        "files_changed": [
+          "policy.py",
+          "scheduler.py"
+        ],
+        "created_at": "2026-09-29T16:07:06.429246Z",
+        "size_bytes": 733
+      },
+      "validations": [
+        {
+          "id": "01a0edeb-7693-76b0-bd44-4dee17c2d1cd",
+          "repair_run_id": "01a0edea-faf4-71d3-95ba-6b8b051f086d",
+          "candidate_id": "01a0edeb-75bb-74f9-95ba-48a9b06a347a",
+          "attempt_no": 1,
+          "status": "PASS",
+          "error_type": null,
+          "duration_seconds": 0.17881583400594536,
+          "started_at": "2026-09-29T16:07:06.644586Z",
+          "ended_at": "2026-09-29T16:07:06.826422Z",
+          "checks": [
+            {
+              "name": "BASELINE",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 1,
+              "output": "F\n======================================================================\nFAIL: test_contract (test_target.RepairTest.test_contract)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/data/worktrees/repair-validation/01a0edeb-7693-76b0-bd44-4dee17c2d1cd/test_target.py\", line 6, in test_contract\n    self.assertEqual((next_delay(429, 1), next_delay(400, 1)), (4, None))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Tuples differ: (2, 2) != (4, None)\n\nFirst differing element 0:\n2\n4\n\n- (2, 2)\n+ (4, None)\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.05347116700431798,
+              "stored_output_bytes": 726
+            },
+            {
+              "name": "PATCH_CHECK",
+              "argv": [
+                "git",
+                "apply",
+                "--check",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0007289589993888512,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "PATCH_APPLY",
+              "argv": [
+                "git",
+                "apply",
+                "-"
+              ],
+              "exit_code": 0,
+              "output": "",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0005387499986682087,
+              "stored_output_bytes": 0
+            },
+            {
+              "name": "TARGET",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_target.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.0495973750075791,
+              "stored_output_bytes": 98
+            },
+            {
+              "name": "REGRESSION_1",
+              "argv": [
+                "/usr/local/bin/python3.14",
+                "-S",
+                "-m",
+                "unittest",
+                "test_regression.py"
+              ],
+              "exit_code": 0,
+              "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+              "truncated": false,
+              "timed_out": false,
+              "duration_seconds": 0.04507916700094938,
+              "stored_output_bytes": 98
+            }
+          ],
+          "manifest": {
+            "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.36",
+            "provider": "trusted_local_checkout",
+            "base_commit": "329f6c7c85740ab5bd266208f91dd507bd569e69",
+            "environment": "explicit PATH/Git config/LANG; no inherited host secrets",
+            "python_version": "3.14.7 (main, Sep 19 2026, 01:10:03) [GCC 12.2.0]",
+            "candidate_sha256": "763b91e6eb10723652b2514bac5d0ad4287833f41bd441554a777d1e2168a48d"
+          }
+        }
+      ],
+      "supplementary_audit": {
+        "sample_id": "acceptance-retry-contract",
+        "target_commit": "329f6c7c85740ab5bd266208f91dd507bd569e69",
+        "task_id": "01a0edea-faf1-71b7-a5b6-89252b5a8f01",
+        "patch_sha256": "763b91e6eb10723652b2514bac5d0ad4287833f41bd441554a777d1e2168a48d",
+        "baseline_exit_codes": [
+          1,
+          1,
+          1
+        ],
+        "reference_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "candidate_exit_codes": [
+          0,
+          0,
+          1
+        ],
+        "original_checks_pass": true,
+        "supplementary_pass": false
+      },
+      "source_file_count": 2
+    }
+  ]
+}

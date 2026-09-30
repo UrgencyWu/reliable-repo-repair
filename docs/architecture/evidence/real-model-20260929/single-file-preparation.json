@@ -1,0 +1,118 @@
+{
+  "kind": "synthetic-fixture-preparation-not-model-acceptance",
+  "sample_count": 10,
+  "model_calls": 0,
+  "fixtures_sha256": "fe5fbfcff3890f69b4bb80689d2eee9ddc94c947ef36bfefbc5d68af41b83427",
+  "samples": [
+    {
+      "sample_id": "acceptance-addition",
+      "target_commit": "345314244bfd446e67d03c2154e3c2a34a780fc7",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "ffbf01376c7aeceeb584a882150910362314c4efb16c84d2aa78586289e1a3bf"
+    },
+    {
+      "sample_id": "acceptance-clamp",
+      "target_commit": "3c6bc154978236cf9c3dfb96ffce3fe450c3ea72",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "e75e990e6dbf3c73a269dbf4b7bcefd4b664ed4a8e35d140303d975cffe2b9f8"
+    },
+    {
+      "sample_id": "acceptance-mean",
+      "target_commit": "a0d8ef19109a36de03d655baaa9fae99081350fb",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "0831484ddc888f378e1f90eb4f0e014a9ed5e2c2f9675e19925236335a44e1eb"
+    },
+    {
+      "sample_id": "acceptance-median",
+      "target_commit": "4a2a6287b2c6e060230fafc8f81616a16d47e054",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "5c0ae6d033be900fd47f34b95d1579e08a2bf569d30a98fbc8aa102bf6c12af2"
+    },
+    {
+      "sample_id": "acceptance-stable-unique",
+      "target_commit": "6ab0e064ee1ce660ca6a1fe96d53ed3efb13ef47",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "79f324199c3f14c8d7a3cec449cac4dab99a440f6ce62253874e07c50c5ad383"
+    },
+    {
+      "sample_id": "acceptance-slug",
+      "target_commit": "c33c201bbe2b6838b73ea5c9f5993413a9f47509",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "95252c13105d37aa4b35e93692eec5daf5911efe21ef701bb53383a0aec22e71"
+    },
+    {
+      "sample_id": "acceptance-chunks",
+      "target_commit": "a713e664f70750a9a81b212159f00276a83d94c3",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "e2b67e33219f9915e93de6a82905ccf1d90c9c9be78dde5b359bd16f4d0f1b3f"
+    },
+    {
+      "sample_id": "acceptance-inclusive-range",
+      "target_commit": "eb3db7cc19012ebbb7d343c32801823e5966cbd4",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "b5e594976745c56b67e27e1bd1c0fcd0b41c8c9717132f04ad23bc7c570688b2"
+    },
+    {
+      "sample_id": "acceptance-none-default",
+      "target_commit": "b9f97110f06923f53568b686002c28f1e343741a",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "558de5ca3fd303621f8c87f133ff3844ea1a4b4c2af37c579d596a020a1eb8a4"
+    },
+    {
+      "sample_id": "acceptance-capped-backoff",
+      "target_commit": "7bc8631d623c49b51b694b0f4c3df613aa496d02",
+      "failing_command": "python3 -m unittest test_target.py",
+      "baseline_exit_code": 1,
+      "reference_check_exit_codes": [
+        0,
+        0
+      ],
+      "reference_patch_sha256": "4f92b8f363869f14044c53bc27f216d333005aa8582071884b83c741c6bb0476"
+    }
+  ]
+}

@@ -788,6 +788,27 @@ REVIEW_CHAT_PLAIN_MARKER = "E2E_REVIEW_CHAT_PLAIN"
 REVIEW_CHAT_FILE = "zeta.py"
 
 SCRIPT_LIBRARY: dict[str, tuple[StepSpec, ...]] = {
+    "repair_fixture": (
+        _tool_step(
+            "Reproducing the configured fixture failure.",
+            "execute",
+            {"command": "python3 -m unittest test_calc.py"},
+            "call-repair-reproduce",
+        ),
+        _tool_step(
+            "Fixing the fixture arithmetic implementation.",
+            "execute",
+            {"command": "printf 'def add(a, b):\\n    return a + b\\n' > calc.py"},
+            "call-repair-edit",
+        ),
+        _tool_step(
+            "Checking the candidate in the agent workspace.",
+            "execute",
+            {"command": "python3 -m unittest test_calc.py"},
+            "call-repair-check",
+        ),
+        StepSpec(content="Candidate patch ready for independent validation."),
+    ),
     "review_chat_comments": (
         _tool_step(
             "Drafting the first comment.",
@@ -1243,6 +1264,17 @@ def _is_pull_request_fix(text: str) -> bool:
 
 
 SCRIPT_RULES: tuple[ScriptRule, ...] = (
+    ScriptRule(
+        "repair_fixture",
+        lambda ctx: (
+            "E2E_REPAIR_FIXTURE" in ctx.first_text
+            or (
+                "# Repository repair task" in ctx.first_text
+                and "\nRepository fixture: arithmetic\n" in ctx.first_text
+                and "E2E_" not in ctx.first_text
+            )
+        ),
+    ),
     ScriptRule("review_chat_comments", lambda ctx: REVIEW_CHAT_COMMENTS_MARKER in ctx.last_text),
     ScriptRule("review_chat_review", lambda ctx: REVIEW_CHAT_REVIEW_MARKER in ctx.last_text),
     ScriptRule("review_chat_plain", lambda ctx: REVIEW_CHAT_PLAIN_MARKER in ctx.last_text),

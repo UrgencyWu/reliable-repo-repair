@@ -1,0 +1,18 @@
+FROM node:24.13.1-bookworm-slim AS build
+RUN npm install --global pnpm@11.22.0
+WORKDIR /app
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY ui/package.json ui/package.json
+COPY desktop/patches desktop/patches
+RUN pnpm install --frozen-lockfile --filter open-swe-dashboard... --filter open-swe \
+    --fetch-timeout 300000 --network-concurrency 4
+COPY ui ui
+RUN pnpm --dir ui run build
+
+FROM node:24.13.1-bookworm-slim
+WORKDIR /app
+COPY --from=build /app/ui/.output ./.output
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=8080
+USER node
+EXPOSE 8080
+CMD ["node", ".output/server/index.mjs"]

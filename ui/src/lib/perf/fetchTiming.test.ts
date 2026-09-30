@@ -1,6 +1,6 @@
 /** @vitest-environment jsdom */
 
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 
 import { classifyDashboardRequest, parseServerTiming } from "./fetchTiming"
 
@@ -50,4 +50,37 @@ describe("classifyDashboardRequest", () => {
       classifyDashboardRequest(`/dashboard/api/threads/${THREAD}/branch-diff`)
     ).toBe(null)
   })
+})
+
+it("preserves runtime fetch helpers and records response metadata without changing the body", async () => {
+  const { withRequestTiming, subscribeRequestTimings } =
+    await import("./fetchTiming")
+  const timings: import("./fetchTiming").RequestTiming[] = []
+  const preconnect = vi.fn()
+  vi.stubGlobal(
+    "fetch",
+    Object.assign(
+      vi.fn(
+        async () =>
+          new Response("original body", {
+            status: 200,
+            headers: { "Server-Timing": "tests;dur=2.5" },
+          })
+      ),
+      { preconnect }
+    )
+  )
+  const unsubscribe = subscribeRequestTimings((timing) => timings.push(timing))
+  try {
+    const wrapped = withRequestTiming((input, init) => fetch(input, init))
+    wrapped.preconnect("https://example.invalid")
+    const response = await wrapped(`/dashboard/api/threads/${THREAD}/state`)
+    expect(await response.text()).toBe("original body")
+    expect(preconnect).toHaveBeenCalledWith("https://example.invalid")
+    expect(timings).toHaveLength(1)
+    expect(timings[0]?.serverTiming).toEqual([{ name: "tests", duration: 2.5 }])
+  } finally {
+    unsubscribe()
+    vi.unstubAllGlobals()
+  }
 })

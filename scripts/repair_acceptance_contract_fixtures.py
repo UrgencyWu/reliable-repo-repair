@@ -1,0 +1,163 @@
+"""Prepare a new, stronger two-case contract cohort without changing prior evidence."""
+
+import argparse
+import asyncio
+import hashlib
+import json
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from textwrap import indent
+from uuid import UUID
+
+from agent.prompts import prompt
+from agent.repair.config import FixtureConfig
+from agent.repair.process import git, run_command
+
+
+@dataclass(frozen=True)
+class ContractSample:
+    name: str
+    files: dict[str, str]
+    references: dict[str, str]
+    imports: str
+    contract_prompt: str
+    target: str
+    regression: str
+
+
+SAMPLES = (
+    ContractSample(
+        "capped-backoff-v2",
+        {"subject.py": "def solve(base, attempt, cap):\n    return min(base * attempt, cap)\n"},
+        {
+            "subject.py": "def solve(base, attempt, cap):\n    return min(base * 2 ** attempt, cap)\n"
+        },
+        "from subject import solve\n",
+        "repair/acceptance/capped_backoff_v2",
+        "self.assertEqual(solve(3, 2, 100), 12)",
+        "for base in (1, 2, 3, 5):\n    for attempt in range(5):\n        for cap in (4, 100):\n            with self.subTest(base=base, attempt=attempt, cap=cap):\n                self.assertEqual(solve(base, attempt, cap), min(base * 2 ** attempt, cap))",
+    ),
+    ContractSample(
+        "retry-contract-v2",
+        {
+            "policy.py": "def retryable(status):\n    return status >= 400\n",
+            "scheduler.py": "from policy import retryable\ndef next_delay(status, attempt, base=2, cap=20):\n    if not retryable(status):\n        return None\n    return min(base * attempt, cap)\n",
+        },
+        {
+            "policy.py": "def retryable(status):\n    return status == 429 or 500 <= status < 600\n",
+            "scheduler.py": "from policy import retryable\ndef next_delay(status, attempt, base=2, cap=20):\n    if not retryable(status):\n        return None\n    return min(base * 2 ** attempt, cap)\n",
+        },
+        "from scheduler import next_delay\nfrom policy import retryable\n",
+        "repair/acceptance/retry_contract_v2",
+        "self.assertEqual(next_delay(503, 2, base=2, cap=100), 8); self.assertTrue(retryable(501)); self.assertTrue(retryable(599))",
+        "for status in (200, 400, 404, 429, 500, 501, 502, 503, 504, 599, 600):\n    with self.subTest(status=status):\n        expected = status == 429 or 500 <= status < 600\n        self.assertEqual(retryable(status), expected)\n        for base in (2, 3, 5):\n            for attempt in range(5):\n                self.assertEqual(next_delay(status, attempt, base, 100), min(base * 2 ** attempt, 100) if expected else None)",
+    ),
+)
+
+
+async def prepare(root: Path, owner: UUID) -> dict[str, object]:
+    root = root.resolve()
+    await asyncio.to_thread(root.mkdir, parents=True, exist_ok=False)
+    python = str(Path(sys.executable).resolve())
+    fixtures: list[FixtureConfig] = []
+    manifest: list[dict[str, object]] = []
+    for sample in SAMPLES:
+        contract = prompt(sample.contract_prompt)
+        repo = root / sample.name
+        await asyncio.to_thread(repo.mkdir)
+        for path, contents in sample.files.items():
+            await asyncio.to_thread((repo / path).write_text, contents)
+        await asyncio.to_thread((repo / "CONTRACT.md").write_text, contract + "\n")
+        for name, assertion in (("target", sample.target), ("regression", sample.regression)):
+            code = (
+                "import unittest\n"
+                + sample.imports
+                + "class RepairTest(unittest.TestCase):\n    def test_contract(self):\n"
+                + indent(assertion, "        ")
+                + "\n"
+            )
+            await asyncio.to_thread((repo / f"test_{name}.py").write_text, code)
+        await asyncio.to_thread((repo / ".gitignore").write_text, "__pycache__/\n")
+        await git(repo, "init", "--initial-branch=main")
+        await git(repo, "add", ".")
+        await git(
+            repo,
+            "-c",
+            "user.name=Acceptance Fixture",
+            "-c",
+            "user.email=acceptance@example.invalid",
+            "commit",
+            "-m",
+            sample.name,
+        )
+        commit = (await git(repo, "rev-parse", "HEAD")).decode().strip()
+        target = [python, "-S", "-m", "unittest", "test_target.py"]
+        regression = [python, "-S", "-m", "unittest", "test_regression.py"]
+        baseline = await run_command(target, repo)
+        if (
+            baseline.exit_code != 1
+            or baseline.truncated
+            or b"FAILED (failures=1)" not in baseline.output
+        ):
+            raise RuntimeError(f"Baseline is not an assertion failure: {sample.name}")
+        for path, contents in sample.references.items():
+            await asyncio.to_thread((repo / path).write_text, contents)
+        patch = await git(repo, "diff", "--binary", commit)
+        await git(repo, "checkout", "--", *sample.files)
+        for argv in (["git", "apply", "--check", "-"], ["git", "apply", "-"]):
+            applied = await run_command(argv, repo, input_data=patch)
+            if applied.exit_code != 0 or applied.truncated:
+                raise RuntimeError(f"Reference cannot be applied: {sample.name}")
+        results = [await run_command(argv, repo) for argv in (target, regression)]
+        if any(result.exit_code != 0 or result.truncated for result in results):
+            raise RuntimeError(f"Reference fails frozen checks: {sample.name}")
+        await git(repo, "checkout", "--", *sample.files)
+        if await git(repo, "status", "--porcelain"):
+            raise RuntimeError(f"Sample has a dirty base: {sample.name}")
+        fixture = FixtureConfig(
+            id=f"acceptance-{sample.name}",
+            source_path=repo,
+            failing_command="python3 -m unittest test_target.py",
+            target_argv=target,
+            regression_argv=[regression],
+            allowed_patch_paths=list(sample.files),
+            allowed_users=[owner],
+        )
+        fixtures.append(fixture)
+        manifest.append(
+            {
+                "sample_id": fixture.id,
+                "target_commit": commit,
+                "failing_command": fixture.failing_command,
+                "constraints": contract,
+                "baseline_exit_code": baseline.exit_code,
+                "reference_check_exit_codes": [result.exit_code for result in results],
+                "reference_patch_sha256": hashlib.sha256(patch).hexdigest(),
+                "source_file_count": len(sample.files),
+            }
+        )
+    fixture_json = json.dumps([fixture.model_dump(mode="json") for fixture in fixtures], indent=2)
+    await asyncio.to_thread((root / "fixtures.json").write_text, fixture_json)
+    evidence: dict[str, object] = {
+        "kind": "contract-followup-synthetic-preparation-not-model-acceptance",
+        "sample_count": len(manifest),
+        "model_calls": 0,
+        "fixtures_sha256": hashlib.sha256(fixture_json.encode()).hexdigest(),
+        "samples": manifest,
+    }
+    await asyncio.to_thread((root / "manifest.json").write_text, json.dumps(evidence, indent=2))
+    return evidence
+
+
+async def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--owner-id", type=UUID, required=True)
+    args = parser.parse_args()
+    evidence = await prepare(args.output, args.owner_id)
+    print(json.dumps({"sample_count": evidence["sample_count"], "model_calls": 0}))
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

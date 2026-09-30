@@ -1,0 +1,15 @@
+diff --git a/src/requests/sessions.py b/src/requests/sessions.py
+index 578cc44d5c17a81982c28308b6396760ab9d5946..0f3cdff3f5ff83c71e5a30de921a78b6b1e224a1 100644
+--- a/src/requests/sessions.py
++++ b/src/requests/sessions.py
+@@ -179,9 +179,8 @@ class SessionRedirectMixin:
+             prepared_request = req.copy()
+ 
+             # Update history and keep track of redirects.
+-            # resp.history must ignore the original request in this loop
++            resp.history = hist[:]
+             hist.append(resp)
+-            resp.history = hist[1:]
+ 
+             try:
+                 resp.content  # Consume socket so it can be released
