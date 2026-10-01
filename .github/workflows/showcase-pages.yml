@@ -18,7 +18,7 @@ jobs:
       pages: read
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - name: Package only the public static showcase
         env:
           SHOWCASE_OUTPUT: ${{ runner.temp }}/repair-showcase
@@ -44,7 +44,7 @@ jobs:
           contents = contents.replace('href="../../', f'href="{source_url}')
           page.write_text(contents, encoding="utf-8")
           PY
-      - uses: actions/upload-pages-artifact@v4
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: ${{ runner.temp }}/repair-showcase
 
@@ -60,4 +60,4 @@ jobs:
     steps:
       - name: Deploy showcase
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
